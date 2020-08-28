@@ -12,6 +12,10 @@ import MapKit
 class ViewController: UIViewController {
 
     @IBOutlet weak var theMap: MKMapView!
+    @IBOutlet weak var startField: UITextField!
+    @IBOutlet weak var destField: UITextField!
+    @IBOutlet weak var walkOnlyToggle: UISegmentedControl!
+    @IBOutlet weak var searchButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()

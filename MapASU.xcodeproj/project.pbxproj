@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B3ED40524FEFF5000BFEED7 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 8B3ED40424FEFF5000BFEED7 /* SwiftSoup */; };
 		8B3F068424E7436A00E4E5A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B3F068324E7436A00E4E5A8 /* AppDelegate.swift */; };
 		8B3F068624E7436A00E4E5A8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B3F068524E7436A00E4E5A8 /* SceneDelegate.swift */; };
 		8B3F068824E7436A00E4E5A8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B3F068724E7436A00E4E5A8 /* ViewController.swift */; };
@@ -33,6 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B3ED40524FEFF5000BFEED7 /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +88,9 @@
 			dependencies = (
 			);
 			name = MapASU;
+			packageProductDependencies = (
+				8B3ED40424FEFF5000BFEED7 /* SwiftSoup */,
+			);
 			productName = MapASU;
 			productReference = 8B3F068024E7436A00E4E5A8 /* MapASU.app */;
 			productType = "com.apple.product-type.application";
@@ -114,6 +119,9 @@
 				Base,
 			);
 			mainGroup = 8B3F067724E7436A00E4E5A8;
+			packageReferences = (
+				8B3ED40324FEFF5000BFEED7 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+			);
 			productRefGroup = 8B3F068124E7436A00E4E5A8 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -342,6 +350,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8B3ED40324FEFF5000BFEED7 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scinfu/SwiftSoup.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.3.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8B3ED40424FEFF5000BFEED7 /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8B3ED40324FEFF5000BFEED7 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		8B3F068C24E7436A00E4E5A8 /* MapASU.xcdatamodeld */ = {

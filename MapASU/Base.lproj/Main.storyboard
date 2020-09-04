@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -58,6 +58,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <state key="normal" title="Search"/>
+                                <connections>
+                                    <action selector="searchForStuff:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DW2-nu-ftC"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -65,7 +68,6 @@
                     </view>
                     <connections>
                         <outlet property="destField" destination="8Op-P0-iLD" id="iiC-93-639"/>
-                        <outlet property="searchButton" destination="NTc-jb-cig" id="Jvj-2o-IEo"/>
                         <outlet property="startField" destination="iGL-Hz-tJh" id="kJN-eP-EQM"/>
                         <outlet property="theMap" destination="8F8-1N-dMt" id="SQm-V8-QaA"/>
                         <outlet property="walkOnlyToggle" destination="PKo-zU-yiP" id="j4E-fQ-zlL"/>

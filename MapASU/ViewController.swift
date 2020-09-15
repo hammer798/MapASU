@@ -17,6 +17,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var destField: UITextField!
     @IBOutlet weak var walkOnlyToggle: UISegmentedControl!
     
+    @IBOutlet weak var viewTopConstraint: NSLayoutConstraint!
+    
     var classesArray: [(String, String, String)] = []
     
     override func viewDidLoad() {
@@ -24,6 +26,11 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
+    @IBAction func openSearchMenu(_ sender: Any) {
+        viewTopConstraint.constant = 100
+    
+    }
+    
     @IBAction func searchForStuff(_ sender: Any) {
         var classInfo: [String.SubSequence] = []
         guard let dest = destField.text else{return}

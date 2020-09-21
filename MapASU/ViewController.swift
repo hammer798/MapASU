@@ -16,6 +16,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var startField: UITextField!
     @IBOutlet weak var destField: UITextField!
     @IBOutlet weak var walkOnlyToggle: UISegmentedControl!
+    @IBOutlet weak var dividerLine: UIView!
+    @IBOutlet weak var dataTable: UITableView!
     
     @IBOutlet weak var viewTopConstraint: NSLayoutConstraint!
     
@@ -28,6 +30,8 @@ class ViewController: UIViewController {
 
     @IBAction func openSearchMenu(_ sender: Any) {
         viewTopConstraint.constant = 100
+        dividerLine.isHidden = false
+        dataTable.isHidden = false
         UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseIn, animations: {
             self.view.layoutIfNeeded()
         })

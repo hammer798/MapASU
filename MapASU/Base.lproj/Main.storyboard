@@ -16,13 +16,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="8F8-1N-dMt">
-                                <rect key="frame" x="0.0" y="44" width="414" height="660"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="700"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QTt-xY-bB1">
                                 <rect key="frame" x="0.0" y="700" width="414" height="742"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XUg-Wj-aL6">
+                                    <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XUg-Wj-aL6">
                                         <rect key="frame" x="47" y="170" width="320" height="2"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -73,6 +73,11 @@
                                             <action selector="searchForStuff:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DW2-nu-ftC"/>
                                         </connections>
                                     </button>
+                                    <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="20r-s3-ntc">
+                                        <rect key="frame" x="27" y="200" width="363" height="400"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    </tableView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
@@ -87,7 +92,9 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="dataTable" destination="20r-s3-ntc" id="dcg-va-k2c"/>
                         <outlet property="destField" destination="8Op-P0-iLD" id="iiC-93-639"/>
+                        <outlet property="dividerLine" destination="XUg-Wj-aL6" id="mT3-vl-lH0"/>
                         <outlet property="startField" destination="iGL-Hz-tJh" id="kJN-eP-EQM"/>
                         <outlet property="theMap" destination="8F8-1N-dMt" id="SQm-V8-QaA"/>
                         <outlet property="viewTopConstraint" destination="etN-8T-q3E" id="Wyy-vi-ygh"/>

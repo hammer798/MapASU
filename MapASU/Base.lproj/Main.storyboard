@@ -78,6 +78,15 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     </tableView>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fYn-y9-9Gs">
+                                        <rect key="frame" x="188" y="700" width="50" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <state key="normal" title="Close"/>
+                                        <connections>
+                                            <action selector="closeSearchMenu:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kDG-sk-bxU"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
@@ -92,6 +101,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="closePanelButton" destination="fYn-y9-9Gs" id="Z7v-L2-2oo"/>
                         <outlet property="dataTable" destination="20r-s3-ntc" id="dcg-va-k2c"/>
                         <outlet property="destField" destination="8Op-P0-iLD" id="iiC-93-639"/>
                         <outlet property="dividerLine" destination="XUg-Wj-aL6" id="mT3-vl-lH0"/>

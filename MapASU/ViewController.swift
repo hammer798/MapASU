@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var walkOnlyToggle: UISegmentedControl!
     @IBOutlet weak var dividerLine: UIView!
     @IBOutlet weak var dataTable: UITableView!
+    @IBOutlet weak var closePanelButton: UIButton!
     
     @IBOutlet weak var viewTopConstraint: NSLayoutConstraint!
     
@@ -32,10 +33,22 @@ class ViewController: UIViewController {
         viewTopConstraint.constant = 100
         dividerLine.isHidden = false
         dataTable.isHidden = false
+        closePanelButton.isHidden = false
         UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseIn, animations: {
             self.view.layoutIfNeeded()
         })
     
+    }
+    
+    @IBAction func closeSearchMenu(_ sender: Any) {
+        viewTopConstraint.constant = 656
+        dividerLine.isHidden = true
+        dataTable.isHidden = true
+        closePanelButton.isHidden = true
+        UIView.animate(withDuration: 0.3, delay: 0.0, options:
+            .curveEaseIn, animations: {
+            self.view.layoutIfNeeded()
+        })
     }
     
     @IBAction func searchForStuff(_ sender: Any) {

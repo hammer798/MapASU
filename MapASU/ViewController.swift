@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import SwiftSoup
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var theMap: MKMapView!
     @IBOutlet weak var startField: UITextField!
@@ -23,12 +23,42 @@ class ViewController: UIViewController {
     @IBOutlet weak var viewTopConstraint: NSLayoutConstraint!
     
     var classesArray: [(String, String, String)] = []
+    var mode = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if mode == 0 {
+            return 0
+        }
+        else if mode == 1 {
+            return classesArray.count
+        }
+        else{
+            //do stuff
+            //do i need this?
+        }
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "InfoDisplayTableCell", for: indexPath) as? InfoDisplayTableViewCell  else {
+            fatalError("The dequeued cell is not an instance of InfoDisplayTableViewCell.")
+        }
+        let nextData = classesArray[indexPath.row]
+        cell.label1.text = nextData.0
+        cell.label2.text = nextData.1
+        cell.label3.text = nextData.2
+        
+        return cell
+    }
     @IBAction func openSearchMenu(_ sender: Any) {
         viewTopConstraint.constant = 100
         dividerLine.isHidden = false

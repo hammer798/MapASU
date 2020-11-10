@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		8B06291F254CA24700AD33ED /* InfoDisplayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B06291E254CA24700AD33ED /* InfoDisplayTableViewCell.swift */; };
+		8B3DB092255A7EEF00EAA598 /* direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B3DB091255A7EEF00EAA598 /* direction.swift */; };
+		8B3DB094255A7EFF00EAA598 /* directions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B3DB093255A7EFE00EAA598 /* directions.swift */; };
+		8B3DB096255A7F0D00EAA598 /* location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B3DB095255A7F0D00EAA598 /* location.swift */; };
+		8B3DB098255A7F1B00EAA598 /* locations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B3DB097255A7F1B00EAA598 /* locations.swift */; };
+		8B3DB09A255A7F2A00EAA598 /* path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B3DB099255A7F2A00EAA598 /* path.swift */; };
+		8B3DB09C255A7F3800EAA598 /* paths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B3DB09B255A7F3800EAA598 /* paths.swift */; };
 		8B3ED40524FEFF5000BFEED7 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 8B3ED40424FEFF5000BFEED7 /* SwiftSoup */; };
 		8B3F068424E7436A00E4E5A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B3F068324E7436A00E4E5A8 /* AppDelegate.swift */; };
 		8B3F068624E7436A00E4E5A8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B3F068524E7436A00E4E5A8 /* SceneDelegate.swift */; };
@@ -20,6 +26,12 @@
 
 /* Begin PBXFileReference section */
 		8B06291E254CA24700AD33ED /* InfoDisplayTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoDisplayTableViewCell.swift; sourceTree = "<group>"; };
+		8B3DB091255A7EEF00EAA598 /* direction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = direction.swift; sourceTree = "<group>"; };
+		8B3DB093255A7EFE00EAA598 /* directions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = directions.swift; sourceTree = "<group>"; };
+		8B3DB095255A7F0D00EAA598 /* location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = location.swift; sourceTree = "<group>"; };
+		8B3DB097255A7F1B00EAA598 /* locations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = locations.swift; sourceTree = "<group>"; };
+		8B3DB099255A7F2A00EAA598 /* path.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = path.swift; sourceTree = "<group>"; };
+		8B3DB09B255A7F3800EAA598 /* paths.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = paths.swift; sourceTree = "<group>"; };
 		8B3F068024E7436A00E4E5A8 /* MapASU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapASU.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B3F068324E7436A00E4E5A8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8B3F068524E7436A00E4E5A8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +74,12 @@
 		8B3F068224E7436A00E4E5A8 /* MapASU */ = {
 			isa = PBXGroup;
 			children = (
+				8B3DB09B255A7F3800EAA598 /* paths.swift */,
+				8B3DB099255A7F2A00EAA598 /* path.swift */,
+				8B3DB097255A7F1B00EAA598 /* locations.swift */,
+				8B3DB095255A7F0D00EAA598 /* location.swift */,
+				8B3DB093255A7EFE00EAA598 /* directions.swift */,
+				8B3DB091255A7EEF00EAA598 /* direction.swift */,
 				8B06291E254CA24700AD33ED /* InfoDisplayTableViewCell.swift */,
 				8B3F068324E7436A00E4E5A8 /* AppDelegate.swift */,
 				8B3F068524E7436A00E4E5A8 /* SceneDelegate.swift */,
@@ -152,10 +170,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B3DB09A255A7F2A00EAA598 /* path.swift in Sources */,
 				8B06291F254CA24700AD33ED /* InfoDisplayTableViewCell.swift in Sources */,
+				8B3DB098255A7F1B00EAA598 /* locations.swift in Sources */,
 				8B3F068824E7436A00E4E5A8 /* ViewController.swift in Sources */,
+				8B3DB09C255A7F3800EAA598 /* paths.swift in Sources */,
+				8B3DB096255A7F0D00EAA598 /* location.swift in Sources */,
 				8B3F068424E7436A00E4E5A8 /* AppDelegate.swift in Sources */,
+				8B3DB092255A7EEF00EAA598 /* direction.swift in Sources */,
 				8B3F068E24E7436A00E4E5A8 /* MapASU.xcdatamodeld in Sources */,
+				8B3DB094255A7EFF00EAA598 /* directions.swift in Sources */,
 				8B3F068624E7436A00E4E5A8 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,6 +1,6 @@
 //
 //  location.swift
-//  finalproject
+//  
 //
 //  Created by ibradle1 on 11/2/19.
 //  Copyright © 2019 ibradle1. All rights reserved.
@@ -13,12 +13,14 @@ class location {
     var lng: Double?
     var name: String?
     var adjacentPath: String?
+    var abb: String?
     
-    init(latitude:Double, longitude:Double, locname:String, adjPath:String){
+    init(latitude:Double, longitude:Double, locname:String, adjPath:String, abbreviation:String){
         lat = latitude
         lng = longitude
         name = locname
         adjacentPath = adjPath
+        abb = abbreviation
     }
 }
 

@@ -11,12 +11,14 @@ import Foundation
 class direction {
     
     var path:String?
+    var nextPath:String?
     var distance:Int?
     var direction:Int? //0 is N, 1 is E, 2 is S, 3 is W
     var message:String?
     
-    init(p:String, dis:Int, dir:Int, m:String){
+    init(p:String, np:String, dis:Int, dir:Int, m:String){
         path = p
+        nextPath = np
         distance = dis
         direction = dir
         if m == "Final" {

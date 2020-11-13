@@ -34,4 +34,20 @@ class path{
             self.orientation = 1
         }
     }
+    
+    func getInterWith(name:String) -> (Double, Double){
+        var intersection:(Double,Double) = (0,0)
+        intersections.forEach{ inter in
+            if inter.0 == name{
+                if orientation == 0{
+                    intersection = (inter.1, long1!)
+                }
+                else{
+                    intersection = (long1!, inter.1)
+                }
+            }
+        }
+        return intersection
+    }
+    
 }

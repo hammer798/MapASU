@@ -41,6 +41,14 @@ class paths{
         return -1
     }
     
+    func getPathByName(name:String) -> path{
+        for i in 0...allPaths.count - 1{
+            if allPaths[i].name == name{
+                return allPaths[i]
+            }
+        }
+    }
+    
     func getCount() -> Int {
         return names.count
     }

@@ -28,6 +28,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        initializeMap()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -142,7 +143,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             } else {print("what")}
             
         }
-        task.resume()    }
+        task.resume()
+        
+    }
+    
+    func initializeMap(){
+        let lon : CLLocationDegrees = -111.93259921
+        let lat : CLLocationDegrees = 33.41895898
+        let coordinates = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+        let span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.015, longitudeDelta: 0.016)
+        let region: MKCoordinateRegion = MKCoordinateRegion(center: coordinates, span: span)
+        self.theMap.setRegion(region, animated: true)
+    }
     
 }
 

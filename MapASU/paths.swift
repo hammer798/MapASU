@@ -21,9 +21,7 @@ class paths{
 
     init(){
         for i in 0..<names.count {
-            var lat:Double = -1
-            var lng:Double = -1
-            var pat:path = path(name:names[i], lat1:coordinates[i].0.0, long1:coordinates[i].0.1, lat2:coordinates[i].1.0, long2:coordinates[i].1.1, inter:intersections[i], walk:walkOnlys[i])
+            let pat:path = path(name:names[i], lat1:coordinates[i].0.0, long1:coordinates[i].0.1, lat2:coordinates[i].1.0, long2:coordinates[i].1.1, inter:intersections[i], walk:walkOnlys[i])
             allPaths.append(pat)
         }
     }
@@ -47,6 +45,7 @@ class paths{
                 return allPaths[i]
             }
         }
+        return allPaths[0]
     }
     
     func getCount() -> Int {

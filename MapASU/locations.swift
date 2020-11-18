@@ -17,11 +17,11 @@ class locations {
      var abbreviations: [String] = ["None", "CD", "NEEB","STAUF", "COOR", "EDB", "ED", "EDC", "MUSIC", "CFS", "MHALL", "GHALL", "WHALL", "WILSN", "DISCVRY", "LIB", "MCENT", "SHESC", "COWDN", "LL", "SS", "BA", "BAC", "MCRD", "LS", "PWH", "MUR", "SDH", "SDFC", "CRTVC", "EC", "WXLR", "PS", "PABLO", "GWC", "PSYN", "USE", "SCOB", "BDH", "ARM", "RBHL", "BYENG", "HAYDN", "IRISH", "MCL", "VVDS", "VDS", "AGVHAL/CERHAL/CWHAL/HONHAL/JNHAL/RWHAL/SGHAL/WILOHAL", "ADE", "SCD", "ACACI/ACHAL/ARHAL/CHUPA/JOBA/MSHAL/MVHAL/VBHAL", "MANZH", "PV", "TKR", "PABLO", "GLV"]
     init(){
         //get current location
-        var currLoc = location(latitude: -1, longitude: -1, locname: names[0], adjPath:"", abbreviation:abbreviations[0])
+        let currLoc = location(latitude: -1, longitude: -1, locname: names[0], adjPath:"", abbreviation:abbreviations[0])
         allLocations.append(currLoc)
         //iterate through
         for index in 1..<names.count {
-            var loc:location = location(latitude:coords[index-1].0, longitude:coords[index-1].1, locname:names[index], adjPath:adjacentPaths[index-1], abbreviation:abbreviations[index])
+            let loc:location = location(latitude:coords[index-1].0, longitude:coords[index-1].1, locname:names[index], adjPath:adjacentPaths[index-1], abbreviation:abbreviations[index])
             allLocations.append(loc)
         }
     }

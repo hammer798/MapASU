@@ -24,7 +24,7 @@ class directions{
     }
     
     func calcDistance(inter:(String, Double),d:(Double,Double)) -> Int{
-        var des:CLLocation = CLLocation(latitude: d.0, longitude: d.1)
+        let des:CLLocation = CLLocation(latitude: d.0, longitude: d.1)
         var st:CLLocation?
         if abs(d.1 - inter.1) > abs(d.0 - inter.1){
             st = CLLocation(latitude: d.0, longitude:inter.1)
@@ -32,17 +32,17 @@ class directions{
         else{
             st = CLLocation(latitude: inter.1, longitude:d.1)
         }
-        var meters:Double = st!.distance(from: des)
-        var feet:Int = Int(round(meters*3.28084))
+        let meters:Double = st!.distance(from: des)
+        let feet:Int = Int(round(meters*3.28084))
         
         return feet
     }
     
     func calcFinalDistance(p1:(Double,Double), p2:(Double,Double)) -> Int{
-        var st = CLLocation(latitude:p1.0, longitude: p1.1)
-        var des = CLLocation(latitude:p2.0, longitude:p2.1)
-        var meters:Double = st.distance(from:des)
-        var feet:Int = Int(round(meters*3.28084))
+        let st = CLLocation(latitude:p1.0, longitude: p1.1)
+        let des = CLLocation(latitude:p2.0, longitude:p2.1)
+        let meters:Double = st.distance(from:des)
+        let feet:Int = Int(round(meters*3.28084))
         
         return feet
     }
@@ -63,8 +63,8 @@ class directions{
     }
     
     func calcPointDistance(l:location) ->Double{
-        var lng = (start!.lng! - l.lng!) * (start!.lng! - l.lng!)
-        var lat = (start!.lat! - l.lat!) * (start!.lat! - l.lat!)
+        let lng = (start!.lng! - l.lng!) * (start!.lng! - l.lng!)
+        let lat = (start!.lat! - l.lat!) * (start!.lat! - l.lat!)
         return sqrt(lat+lng)
     }
     
@@ -133,10 +133,10 @@ class directions{
         var finalDirections:[direction] = []
         
         //set up initial paths
-        var startPath = allPaths.getPathByName(name:start.adjacentPath!)
+        let startPath = allPaths.getPathByName(name:start.adjacentPath!)
         startPath.intersections.forEach{ inter in
             var directionPath:[direction] = []
-            var interDirection = direction(p:startPath.name!, np:inter.0, dis:calcDistance(inter: inter, d:(start.lat!, start.lng!)), dir:chooseDirection(inter: inter, d:(start.lat!, start.lng!)), m:"")
+            let interDirection = direction(p:startPath.name!, np:inter.0, dis:calcDistance(inter: inter, d:(start.lat!, start.lng!)), dir:chooseDirection(inter: inter, d:(start.lat!, start.lng!)), m:"")
             directionPath.append(interDirection)
             possibleRoutes.append((interDirection.distance!, directionPath))
         }
@@ -144,9 +144,9 @@ class directions{
         //repeatedly expand until the shortest path reaches the goal
         var pathToExpand = nextInQueue()
         while pathToExpand.1.last?.nextPath != dest.name{
-            var lastPath = allPaths.getPathByName(name:(pathToExpand.1.last?.path)!)
-            var nextPath = allPaths.getPathByName(name:(pathToExpand.1.last?.nextPath)!)
-            var lastInter = lastPath.getInterWith(name: nextPath.name!)
+            let lastPath = allPaths.getPathByName(name:(pathToExpand.1.last?.path)!)
+            let nextPath = allPaths.getPathByName(name:(pathToExpand.1.last?.nextPath)!)
+            let lastInter = lastPath.getInterWith(name: nextPath.name!)
             if(dest.adjacentPath != nextPath.name){
                 nextPath.intersections.forEach{ inter in
                     if inter.0 != pathToExpand.1.last?.path{
@@ -154,10 +154,10 @@ class directions{
                         var newDirections:[direction] = []
                         newDirections.append(contentsOf:pathToExpand.1)
                         
-                        var newDirection = direction(p: nextPath.name!, np: inter.0, dis: calcDistance(inter: inter, d:(lastInter.0,lastInter.1)), dir: chooseDirection(inter: inter, d: (lastInter.0, lastInter.1)), m: "")
+                        let newDirection = direction(p: nextPath.name!, np: inter.0, dis: calcDistance(inter: inter, d:(lastInter.0,lastInter.1)), dir: chooseDirection(inter: inter, d: (lastInter.0, lastInter.1)), m: "")
                         
                         newDirections.append(newDirection)
-                        var newPartialRoute = (pathToExpand.0 + newDirection.distance!, newDirections)
+                        let newPartialRoute = (pathToExpand.0 + newDirection.distance!, newDirections)
                         possibleRoutes.append(newPartialRoute)
                     }
                 }
@@ -166,17 +166,17 @@ class directions{
                 var newDirections:[direction] = []
                 newDirections.append(contentsOf:pathToExpand.1)
                 
-                var newDirection = direction(p: nextPath.name!, np: dest.name!, dis:calcFinalDistance(p1: lastInter, p2:(dest.lat!,dest.lng!)), dir: chooseFinalDirection(p1:lastInter, p2:(dest.lat!,dest.lng!), orient: nextPath.orientation!), m: "")
+                let newDirection = direction(p: nextPath.name!, np: dest.name!, dis:calcFinalDistance(p1: lastInter, p2:(dest.lat!,dest.lng!)), dir: chooseFinalDirection(p1:lastInter, p2:(dest.lat!,dest.lng!), orient: nextPath.orientation!), m: "")
                 
                 newDirections.append(newDirection)
-                var newPartialRoute = (pathToExpand.0 + newDirection.distance!, newDirections)
+                let newPartialRoute = (pathToExpand.0 + newDirection.distance!, newDirections)
                 possibleRoutes.append(newPartialRoute)            }
             
             pathToExpand = nextInQueue()
         }
         
         //add final direction
-        var finalDirection = direction(p:dest.adjacentPath!, np:dest.name!, dis:0 ,dir:0, m:"Final")
+        let finalDirection = direction(p:dest.adjacentPath!, np:dest.name!, dis:0 ,dir:0, m:"Final")
         finalDirections = pathToExpand.1
         finalDirections.append(finalDirection)
         

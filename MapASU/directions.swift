@@ -13,15 +13,12 @@ class directions{
     var allPaths = paths()
     var allLocations = locations()
     var route:[direction] = [direction]()
-    var start: location?
-    var dest: location?
+    var startName: String?
+    var destName: String?
     
     var possibleRoutes:[(Int,[direction])] = [(Int,[direction])]()
     
-    init(s:location, d:location){
-        start = s
-        dest = d
-    }
+    init(){}
     
     func calcDistance(inter:(String, Double),d:(Double,Double)) -> Int{
         let des:CLLocation = CLLocation(latitude: d.0, longitude: d.1)
@@ -45,27 +42,6 @@ class directions{
         let feet:Int = Int(round(meters*3.28084))
         
         return feet
-    }
-    
-    func getNearestPath() -> String{
-        var smallest:Double = 1
-        var smallestIndex = -1
-        for i in 1..<allLocations.allLocations.count{
-            if calcPointDistance(l:allLocations.allLocations[i]) < smallest{
-                smallest = calcPointDistance(l:allLocations.allLocations[i])
-                smallestIndex = i
-            }
-        }
-        if smallest < 1{
-            return allLocations.allLocations[smallestIndex].adjacentPath!
-        }
-        return "Fail"
-    }
-    
-    func calcPointDistance(l:location) ->Double{
-        let lng = (start!.lng! - l.lng!) * (start!.lng! - l.lng!)
-        let lat = (start!.lat! - l.lat!) * (start!.lat! - l.lat!)
-        return sqrt(lat+lng)
     }
     
     func chooseDirection(inter: (String, Double), d:(Double,Double)) -> Int{

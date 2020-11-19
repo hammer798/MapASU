@@ -93,6 +93,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         dataTable.isHidden = true
         closePanelButton.isHidden = true
         openPanelButton.isHidden = false
+        initialMessage.isHidden = false
         UIView.animate(withDuration: 0.3, delay: 0.0, options:
             .curveEaseIn, animations: {
             self.view.layoutIfNeeded()

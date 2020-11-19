@@ -20,6 +20,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var dividerLine: UIView!
     @IBOutlet weak var dataTable: UITableView!
     @IBOutlet weak var closePanelButton: UIButton!
+    @IBOutlet weak var openPanelButton: UIButton!
+    @IBOutlet weak var initialMessage: UILabel!
     
     @IBOutlet weak var viewTopConstraint: NSLayoutConstraint!
     
@@ -77,6 +79,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         dividerLine.isHidden = false
         dataTable.isHidden = false
         closePanelButton.isHidden = false
+        openPanelButton.isHidden = true
+        initialMessage.isHidden = true
         UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseIn, animations: {
             self.view.layoutIfNeeded()
         })
@@ -88,6 +92,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         dividerLine.isHidden = true
         dataTable.isHidden = true
         closePanelButton.isHidden = true
+        openPanelButton.isHidden = false
         UIView.animate(withDuration: 0.3, delay: 0.0, options:
             .curveEaseIn, animations: {
             self.view.layoutIfNeeded()

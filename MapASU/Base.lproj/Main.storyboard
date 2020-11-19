@@ -132,9 +132,10 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j8F-AI-HBT">
-                                        <rect key="frame" x="157" y="102" width="100" height="30"/>
+                                        <rect key="frame" x="148" y="99" width="118" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal" title="Start Routing"/>
                                         <connections>
                                             <action selector="openSearchMenu:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YAN-Kc-Ccg"/>

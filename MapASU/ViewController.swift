@@ -8,9 +8,10 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 import SwiftSoup
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
 
     @IBOutlet weak var theMap: MKMapView!
     @IBOutlet weak var startField: UITextField!
@@ -23,12 +24,23 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var viewTopConstraint: NSLayoutConstraint!
     
     var classesArray: [(String, String, String)] = []
+    var locationManager = CLLocationManager()
     var mode = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        locationManager.delegate = self
+        locationManager.requestAlwaysAuthorization()
         initializeMap()
+        
+    }
+    
+    func locationManager(_ manager:CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedAlways {
+            locationManager.startUpdatingLocation()
+            theMap.showsUserLocation = true
+        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -154,6 +166,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.015, longitudeDelta: 0.016)
         let region: MKCoordinateRegion = MKCoordinateRegion(center: coordinates, span: span)
         self.theMap.setRegion(region, animated: true)
+        self.theMap.showsUserLocation = true
     }
     
 }

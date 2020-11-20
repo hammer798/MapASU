@@ -25,9 +25,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBOutlet weak var viewTopConstraint: NSLayoutConstraint!
     
-    var classesArray: [(String, String, String)] = []
+    var classesArray: [course] = []
+    var locationsArray: [location] = []
     var locationManager = CLLocationManager()
     var mode = 0
+    
+    var finalDirs = directions()
+    var search = searchAPI()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +50,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
+        if classesArray.count > 0 && locationsArray.count > 0{
+            return 2
+        }
+        
         return 1
     }
     
@@ -54,7 +62,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             return 0
         }
         else if mode == 1 {
-            return classesArray.count
+            if section == 0{
+                return self.classesArray.count
+            }
+            else{
+                return self.locationsArray.count
+            }
         }
         else{
             //do stuff
@@ -67,10 +80,36 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "InfoDisplayTableCell", for: indexPath) as? InfoDisplayTableViewCell  else {
             fatalError("The dequeued cell is not an instance of InfoDisplayTableViewCell.")
         }
-        let nextData = classesArray[indexPath.row]
-        cell.label1.text = nextData.0
-        cell.label2.text = nextData.1
-        cell.label3.text = nextData.2
+        
+        var nextCourseData: course?
+        var nextLocData: location?
+        
+        if classesArray.count > 0 && locationsArray.count > 0{
+            if indexPath.section == 0{
+                nextCourseData = classesArray[indexPath.row]
+            }
+            else{
+                nextLocData = locationsArray[indexPath.row]
+            }
+        }
+        else if classesArray.count > 0{
+            nextCourseData = classesArray[indexPath.row]
+        }
+        else{
+            nextLocData = locationsArray[indexPath.row]
+        }
+        
+        if nextCourseData != nil{
+            //set cell value
+        }
+        else if nextLocData != nil{
+            //set cell value
+        }
+        
+        
+        //cell.label1.text = nextData.0
+        //cell.label2.text = nextData.1
+        //cell.label3.text = nextData.2
         
         return cell
     }
@@ -105,16 +144,31 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         guard let dest = destField.text else{return}
         if(dest.contains(" ")){
             classInfo = dest.split(separator: " ")
-            getClassInfo(classInfo: classInfo)
+            //getClassInfo(classInfo: classInfo)
         }
         else{
             return
         }
                 
         
+        let theGroup = DispatchGroup()
+        theGroup.enter()
+        DispatchQueue.main.async{
+            self.search.searchForThings(searchString: dest)
+            theGroup.leave()
+        }
+        
+        theGroup.notify(queue: .main){
+            print("got data")
+            print(self.classesArray)
+            print(self.locationsArray)
+            
+            //show data
+        }
+        
     }
     
-    func getClassInfo(classInfo:[String.SubSequence]){
+    /*func getClassInfo(classInfo:[String.SubSequence]){
         guard let url = URL(string: "https://webapp4.asu.edu/catalog/myclasslistresults?t=2207&s=" + classInfo[0] + "&n=" + classInfo[1] + "&hon=F&prod=F&c=TEMPE&e=all&page=1")  else { print("uh oh")
                     return }
         let task = URLSession.shared.dataTask(with:url) { data, response, error in
@@ -163,7 +217,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         task.resume()
         
-    }
+    }*/
     
     func initializeMap(){
         let lon : CLLocationDegrees = -111.93259921

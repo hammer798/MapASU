@@ -146,6 +146,15 @@
                                             <action selector="openSearchMenu:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YAN-Kc-Ccg"/>
                                         </connections>
                                     </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4XY-ny-JM2">
+                                        <rect key="frame" x="290" y="113" width="74" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <state key="normal" title="Find Route"/>
+                                        <connections>
+                                            <action selector="getRoute:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Wbo-b9-aU0"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
@@ -167,6 +176,7 @@
                         <outlet property="dividerLine" destination="XUg-Wj-aL6" id="mT3-vl-lH0"/>
                         <outlet property="initialMessage" destination="S0Y-0t-lDj" id="wXC-YU-7gy"/>
                         <outlet property="openPanelButton" destination="j8F-AI-HBT" id="DKE-bL-tfu"/>
+                        <outlet property="routeButton" destination="4XY-ny-JM2" id="DT8-Ps-mEn"/>
                         <outlet property="searchButton" destination="NTc-jb-cig" id="1RP-t1-19p"/>
                         <outlet property="startField" destination="iGL-Hz-tJh" id="kJN-eP-EQM"/>
                         <outlet property="startLabel" destination="xjO-2G-1cK" id="FaB-Mw-en1"/>

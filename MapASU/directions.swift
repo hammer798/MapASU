@@ -20,16 +20,26 @@ class directions{
     
     init(){}
     
+    func generateRoute(start:String, dest:String, group: DispatchGroup){
+        let stLoc = allLocations.matchStringToLocation(name: start)
+        let destLoc = allLocations.matchStringToLocation(name: dest)
+        self.route = dijkstra(start: stLoc, dest: destLoc)
+        
+        group.leave()
+    }
+    
     func calcDistance(inter:(String, Double),d:(Double,Double)) -> Int{
         let des:CLLocation = CLLocation(latitude: d.0, longitude: d.1)
         var st:CLLocation?
         if abs(d.1 - inter.1) > abs(d.0 - inter.1){
-            st = CLLocation(latitude: d.0, longitude:inter.1)
-        }
-        else{
             st = CLLocation(latitude: inter.1, longitude:d.1)
         }
-        let meters:Double = st!.distance(from: des)
+        else{
+            st = CLLocation(latitude: d.0, longitude:inter.1)
+            
+        }
+        let st2 = CLLocation(latitude:(st?.coordinate.latitude)!, longitude: (st?.coordinate.longitude)!)
+        let meters:Double = st2.distance(from: des)
         let feet:Int = Int(round(meters*3.28084))
         
         return feet

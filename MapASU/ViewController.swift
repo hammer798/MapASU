@@ -19,6 +19,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var destLabel: UILabel!
     @IBOutlet weak var destField: UITextField!
     @IBOutlet weak var searchButton: UIButton!
+    @IBOutlet weak var routeButton: UIButton!
     @IBOutlet weak var walkOnlyToggle: UISegmentedControl!
     @IBOutlet weak var dividerLine: UIView!
     @IBOutlet weak var dataTable: UITableView!
@@ -122,7 +123,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         var nextCourseData: course?
         var nextLocData: location?
         
-        if mode != 4{
+        if mode != 5{
             if classesArray.count > 0 && locationsArray.count > 0{
                 if indexPath.section == 0{
                     nextCourseData = classesArray[indexPath.row]
@@ -152,6 +153,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         else{
             //directions cell
+            let directionData = finalDirs.route[indexPath.row]
+            cell.label1.text = directionData.message
+            cell.label2.text = "\(directionData.distance ?? 100) feet"
+            cell.label3.text = ""
+            cell.label3.isHidden = true
         }
         
         
@@ -182,6 +188,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.destString = outputString
                 self.destField.text = outputString
                 self.destField.isEnabled = false
+                self.searchButton.isHidden = true
+                self.routeButton.isHidden = false
                 
                 //show find route button and edit button for dest
                 mode = 4
@@ -222,6 +230,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         destField.isHidden = true
         destLabel.isHidden = true
         searchButton.isHidden = true
+        routeButton.isHidden = true
         UIView.animate(withDuration: 0.3, delay: 0.0, options:
             .curveEaseIn, animations: {
             self.view.layoutIfNeeded()
@@ -229,6 +238,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @IBAction func searchForStuff(_ sender: Any) {
+        self.initialMessage.text = "Return to Route"
+        self.openPanelButton.titleLabel?.text = "Open"
         var searchString = ""
         if mode == 0 || mode == 1{
             guard let start = startField.text else{return}
@@ -259,6 +270,22 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
         }
         
+    }
+    
+    @IBAction func getRoute(_ sender: Any) {
+        let group = DispatchGroup()
+        group.enter()
+        DispatchQueue.main.async{
+            self.finalDirs.generateRoute(start: self.startString, dest: self.destString, group:group)
+        }
+        
+        group.notify(queue: .main){
+            self.mode = 5
+            
+            DispatchQueue.main.async{
+                self.dataTable.reloadData()
+            }
+        }
     }
     
     func initializeMap(){

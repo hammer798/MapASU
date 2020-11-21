@@ -14,8 +14,11 @@ import SwiftSoup
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
 
     @IBOutlet weak var theMap: MKMapView!
+    @IBOutlet weak var startLabel: UILabel!
     @IBOutlet weak var startField: UITextField!
+    @IBOutlet weak var destLabel: UILabel!
     @IBOutlet weak var destField: UITextField!
+    @IBOutlet weak var searchButton: UIButton!
     @IBOutlet weak var walkOnlyToggle: UISegmentedControl!
     @IBOutlet weak var dividerLine: UIView!
     @IBOutlet weak var dataTable: UITableView!
@@ -33,9 +36,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var finalDirs = directions()
     var search = searchAPI()
     
+    var startString: String = ""
+    var destString: String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        dataTable.dataSource = self
+        dataTable.delegate = self
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
         initializeMap()
@@ -58,10 +66,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if mode == 0 {
+        if mode == 0 || mode == 2 {
+            //blank while we get input
             return 0
         }
-        else if mode == 1 {
+        else if mode == 1 || mode == 3 {
+            //search results
             if section == 0{
                 return self.classesArray.count
             }
@@ -69,18 +79,41 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 return self.locationsArray.count
             }
         }
-        else{
-            //do stuff
-            //do i need this?
+        else if mode == 4{
+            //show directions
+            return self.finalDirs.route.count
         }
-        return 0
+        else{
+            //default
+            return 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
+        if classesArray.count > 0 && locationsArray.count > 0{
+            if section == 0{
+                return "Courses"
+            }
+            else{
+                return "Buildings"
+            }
+        }
+        else if classesArray.count > 0{
+            return "Courses"
+        }
+        else if locationsArray.count > 0{
+            return "Buildings"
+        }
+        else{
+            return ""
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "InfoDisplayTableCell", for: indexPath) as? InfoDisplayTableViewCell  else {
             fatalError("The dequeued cell is not an instance of InfoDisplayTableViewCell.")
         }
-        
+                
         var nextCourseData: course?
         var nextLocData: location?
         
@@ -100,16 +133,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         if nextCourseData != nil{
-            //set cell value
+            cell.label1.text = nextCourseData?.courseName
+            cell.label2.text = nextCourseData?.professor
+            cell.label3.text = nextCourseData!.dayTime + " " + nextCourseData!.place
         }
         else if nextLocData != nil{
-            //set cell value
+            cell.label1.text = nextLocData?.name
+            cell.label2.text = nextLocData?.abb
         }
         
-        
-        //cell.label1.text = nextData.0
-        //cell.label2.text = nextData.1
-        //cell.label3.text = nextData.2
         
         return cell
     }
@@ -120,6 +152,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         closePanelButton.isHidden = false
         openPanelButton.isHidden = true
         initialMessage.isHidden = true
+        startField.isHidden = false
+        startLabel.isHidden = false
+        destField.isHidden = false
+        destLabel.isHidden = false
+        searchButton.isHidden = false
         UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseIn, animations: {
             self.view.layoutIfNeeded()
         })
@@ -133,6 +170,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         closePanelButton.isHidden = true
         openPanelButton.isHidden = false
         initialMessage.isHidden = false
+        startField.isHidden = true
+        startLabel.isHidden = true
+        destField.isHidden = true
+        destLabel.isHidden = true
+        searchButton.isHidden = true
         UIView.animate(withDuration: 0.3, delay: 0.0, options:
             .curveEaseIn, animations: {
             self.view.layoutIfNeeded()
@@ -140,84 +182,37 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @IBAction func searchForStuff(_ sender: Any) {
-        var classInfo: [String.SubSequence] = []
-        guard let dest = destField.text else{return}
-        if(dest.contains(" ")){
-            classInfo = dest.split(separator: " ")
-            //getClassInfo(classInfo: classInfo)
+        var searchString = ""
+        if mode == 0{
+            guard let start = startField.text else{return}
+            searchString = start
         }
         else{
-            return
+            guard let dest = destField.text else{return}
+            searchString = dest
         }
-                
         
         let theGroup = DispatchGroup()
         theGroup.enter()
         DispatchQueue.main.async{
-            self.search.searchForThings(searchString: dest)
-            theGroup.leave()
+            self.search.searchForThings(searchString: searchString, group: theGroup)
         }
         
         theGroup.notify(queue: .main){
-            print("got data")
-            print(self.classesArray)
-            print(self.locationsArray)
+            self.classesArray = self.search.classesArray
+            self.locationsArray = self.search.locationsArray
             
             //show data
+            if(self.mode != 1 && self.mode != 3){
+                self.mode+=1
+            }
+            //reset table
+            DispatchQueue.main.async{
+                self.dataTable.reloadData()
+            }
         }
         
     }
-    
-    /*func getClassInfo(classInfo:[String.SubSequence]){
-        guard let url = URL(string: "https://webapp4.asu.edu/catalog/myclasslistresults?t=2207&s=" + classInfo[0] + "&n=" + classInfo[1] + "&hon=F&prod=F&c=TEMPE&e=all&page=1")  else { print("uh oh")
-                    return }
-        let task = URLSession.shared.dataTask(with:url) { data, response, error in
-            if let error = error{
-                print("error", error)
-            }
-            guard let httpResponse = response as? HTTPURLResponse,
-            (200...299).contains(httpResponse.statusCode) else{
-                print("failed")
-                return
-            }
-            if let data = data,
-            let string = String(data: data, encoding: .utf8) {
-                var professors: [String] = []
-                var times: [String] = []
-                var locations: [String] = []
-                do{
-                    let doc = try SwiftSoup.parse(string)
-                    let table = try doc.select("td")
-                    
-                    for tableElements in table {
-                        if tableElements.hasClass("instructorListColumnValue") {
-                            let prof = try tableElements.text()
-                            professors.append(prof)
-                        }
-                        else if tableElements.hasClass("startTimeDateColumnValue") {
-                            let time = try tableElements.text()
-                            times.append(time)
-                        }
-                        else if tableElements.hasClass("locationBuildingColumnValue") {
-                            let place = try tableElements.text()
-                            locations.append(place)
-                        }
-                    }
-                    for i in (0...professors.count-1){
-                        self.classesArray.append((professors[i], times[i], locations[i]))
-                    }
-                    print(self.classesArray)
-                }
-                catch let parserError{
-                    print(parserError.localizedDescription)
-                }
-                
-            } else {print("what")}
-            
-        }
-        task.resume()
-        
-    }*/
     
     func initializeMap(){
         let lon : CLLocationDegrees = -111.93259921

@@ -47,7 +47,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8Op-P0-iLD">
+                                    <textField hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8Op-P0-iLD">
                                         <rect key="frame" x="130" y="70" width="230" height="34"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -76,35 +76,40 @@
                                         <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="sectionIndexBackgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="InfoDisplayTableCell" id="Ip1-WQ-awP" customClass="InfoDisplayTableViewCell" customModule="MapASU" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="363" height="79"/>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="InfoDisplayTableCell" rowHeight="100" id="Ip1-WQ-awP" customClass="InfoDisplayTableViewCell" customModule="MapASU" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="28" width="363" height="100"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ip1-WQ-awP" id="5lK-XY-jaI">
-                                                    <rect key="frame" x="0.0" y="0.0" width="363" height="79"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="363" height="100"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UtS-x6-2b3">
-                                                            <rect key="frame" x="40" y="8" width="48" height="24"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UtS-x6-2b3">
+                                                            <rect key="frame" x="60" y="11" width="48" height="24"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IkR-hE-bS3">
-                                                            <rect key="frame" x="90" y="40" width="42" height="21"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IkR-hE-bS3">
+                                                            <rect key="frame" x="90" y="31" width="42" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yES-x7-46x">
-                                                            <rect key="frame" x="210" y="40" width="42" height="21"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yES-x7-46x">
+                                                            <rect key="frame" x="90" y="48" width="42" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="UtS-x6-2b3" firstAttribute="top" secondItem="5lK-XY-jaI" secondAttribute="topMargin" id="7cH-xo-RtI"/>
+                                                        <constraint firstItem="IkR-hE-bS3" firstAttribute="leading" secondItem="5lK-XY-jaI" secondAttribute="leadingMargin" constant="70" id="ScP-Kh-dWi"/>
+                                                        <constraint firstItem="yES-x7-46x" firstAttribute="leading" secondItem="5lK-XY-jaI" secondAttribute="leadingMargin" constant="70" id="TbH-Aj-IdQ"/>
+                                                        <constraint firstItem="yES-x7-46x" firstAttribute="top" secondItem="5lK-XY-jaI" secondAttribute="topMargin" constant="37" id="YbD-lX-0s7"/>
+                                                        <constraint firstItem="UtS-x6-2b3" firstAttribute="leading" secondItem="5lK-XY-jaI" secondAttribute="leadingMargin" constant="40" id="aId-ck-Zp7"/>
+                                                        <constraint firstItem="IkR-hE-bS3" firstAttribute="top" secondItem="5lK-XY-jaI" secondAttribute="topMargin" constant="20" id="mJZ-9i-JJ6"/>
+                                                    </constraints>
                                                 </tableViewCellContentView>
                                                 <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <connections>
@@ -158,10 +163,13 @@
                         <outlet property="closePanelButton" destination="fYn-y9-9Gs" id="Z7v-L2-2oo"/>
                         <outlet property="dataTable" destination="20r-s3-ntc" id="dcg-va-k2c"/>
                         <outlet property="destField" destination="8Op-P0-iLD" id="iiC-93-639"/>
+                        <outlet property="destLabel" destination="GNe-mA-dhb" id="HnL-v9-lfV"/>
                         <outlet property="dividerLine" destination="XUg-Wj-aL6" id="mT3-vl-lH0"/>
                         <outlet property="initialMessage" destination="S0Y-0t-lDj" id="wXC-YU-7gy"/>
                         <outlet property="openPanelButton" destination="j8F-AI-HBT" id="DKE-bL-tfu"/>
+                        <outlet property="searchButton" destination="NTc-jb-cig" id="1RP-t1-19p"/>
                         <outlet property="startField" destination="iGL-Hz-tJh" id="kJN-eP-EQM"/>
+                        <outlet property="startLabel" destination="xjO-2G-1cK" id="FaB-Mw-en1"/>
                         <outlet property="theMap" destination="8F8-1N-dMt" id="SQm-V8-QaA"/>
                         <outlet property="viewTopConstraint" destination="etN-8T-q3E" id="Wyy-vi-ygh"/>
                         <outlet property="walkOnlyToggle" destination="PKo-zU-yiP" id="j4E-fQ-zlL"/>

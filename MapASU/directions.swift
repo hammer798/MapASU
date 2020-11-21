@@ -65,10 +65,10 @@ class directions{
         }
         else{
             if inter.1 > d.0{
-                return 2
+                return 0
             }
             else{
-                return 0
+                return 2
             }
         }
     }

@@ -43,7 +43,7 @@ class path{
                     intersection = (inter.1, long1!)
                 }
                 else{
-                    intersection = (long1!, inter.1)
+                    intersection = (lat1!, inter.1)
                 }
             }
         }

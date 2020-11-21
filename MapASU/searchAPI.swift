@@ -24,6 +24,9 @@ class searchAPI{
     }
     
     func doClassSearch(searchString:String, group: DispatchGroup){
+        
+        classesArray = []
+        
         let classInfo = searchString.split(separator: " ")
         if classInfo.count > 1{
             guard let url = URL(string: "https://webapp4.asu.edu/catalog/myclasslistresults?t=2207&s=" + classInfo[0] + "&n=" + classInfo[1] + "&hon=F&prod=F&c=TEMPE&e=all&page=1")  else { print("uh oh")
@@ -106,6 +109,7 @@ class searchAPI{
     func doLocationSearch(searchString:String){
         let allLocations = locations()
         
+        locationsArray = []
         
         for loc in allLocations.allLocations{
             if loc.name!.lowercased().contains(searchString.lowercased()){

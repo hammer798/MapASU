@@ -155,7 +155,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             //directions cell
             let directionData = finalDirs.route[indexPath.row]
             cell.label1.text = directionData.message
-            cell.label2.text = "\(directionData.distance ?? 100) feet"
+            if indexPath.row != finalDirs.route.count - 1{
+                cell.label2.text = "\(directionData.distance ?? 100) feet"
+            }
+            else{
+                cell.label2.text = ""
+                cell.label2.isHidden = true
+            }
             cell.label3.text = ""
             cell.label3.isHidden = true
         }

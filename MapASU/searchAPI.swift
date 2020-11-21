@@ -98,6 +98,9 @@ class searchAPI{
                     }
                     task.resume()
         }
+        else{
+            group.leave()
+        }
     }
 
     func doLocationSearch(searchString:String){

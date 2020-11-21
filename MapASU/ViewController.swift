@@ -72,10 +72,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         else if mode == 1 || mode == 3 {
             //search results
-            if section == 0{
+            if section == 0 && self.classesArray.count > 0{
                 return self.classesArray.count
             }
-            else{
+            else {
                 return self.locationsArray.count
             }
         }
@@ -140,6 +140,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         else if nextLocData != nil{
             cell.label1.text = nextLocData?.name
             cell.label2.text = nextLocData?.abb
+            cell.label3.text = ""
+            cell.label3.isHidden = true
         }
         
         
@@ -183,7 +185,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBAction func searchForStuff(_ sender: Any) {
         var searchString = ""
-        if mode == 0{
+        if mode == 0 || mode == 1{
             guard let start = startField.text else{return}
             searchString = start
         }

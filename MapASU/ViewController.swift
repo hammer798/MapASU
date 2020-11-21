@@ -58,15 +58,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        if classesArray.count > 0 && locationsArray.count > 0{
+        if mode == 0 || mode == 2 || mode == 4{
+            return 0
+        }
+        else if classesArray.count > 0 && locationsArray.count > 0{
             return 2
         }
-        
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if mode == 0 || mode == 2 {
+        if mode == 0 || mode == 2 || mode == 4{
             //blank while we get input
             return 0
         }
@@ -79,7 +81,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 return self.locationsArray.count
             }
         }
-        else if mode == 4{
+        else if mode == 5{
             //show directions
             return self.finalDirs.route.count
         }
@@ -90,7 +92,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
-        if classesArray.count > 0 && locationsArray.count > 0{
+        if mode == 5{
+            return "Directions"
+        }
+        else if classesArray.count > 0 && locationsArray.count > 0{
             if section == 0{
                 return "Courses"
             }
@@ -117,36 +122,76 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         var nextCourseData: course?
         var nextLocData: location?
         
-        if classesArray.count > 0 && locationsArray.count > 0{
-            if indexPath.section == 0{
+        if mode != 4{
+            if classesArray.count > 0 && locationsArray.count > 0{
+                if indexPath.section == 0{
+                    nextCourseData = classesArray[indexPath.row]
+                }
+                else{
+                    nextLocData = locationsArray[indexPath.row]
+                }
+            }
+            else if classesArray.count > 0{
                 nextCourseData = classesArray[indexPath.row]
             }
             else{
                 nextLocData = locationsArray[indexPath.row]
             }
-        }
-        else if classesArray.count > 0{
-            nextCourseData = classesArray[indexPath.row]
+            
+            if nextCourseData != nil{
+                cell.label1.text = nextCourseData?.courseName
+                cell.label2.text = nextCourseData?.professor
+                cell.label3.text = nextCourseData!.dayTime + " " + nextCourseData!.place
+            }
+            else if nextLocData != nil{
+                cell.label1.text = nextLocData?.name
+                cell.label2.text = nextLocData?.abb
+                cell.label3.text = ""
+                cell.label3.isHidden = true
+            }
         }
         else{
-            nextLocData = locationsArray[indexPath.row]
-        }
-        
-        if nextCourseData != nil{
-            cell.label1.text = nextCourseData?.courseName
-            cell.label2.text = nextCourseData?.professor
-            cell.label3.text = nextCourseData!.dayTime + " " + nextCourseData!.place
-        }
-        else if nextLocData != nil{
-            cell.label1.text = nextLocData?.name
-            cell.label2.text = nextLocData?.abb
-            cell.label3.text = ""
-            cell.label3.isHidden = true
+            //directions cell
         }
         
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if mode != 5{
+            var outputString = ""
+            if indexPath.section == 0 && classesArray.count > 0{
+                outputString = classesArray[indexPath.row].courseName
+                classesArray = []
+            }
+            else{
+                outputString = locationsArray[indexPath.row].name ?? ""
+                locationsArray = []
+            }
+            
+            if mode < 2{
+                self.startString = outputString
+                self.startField.text = outputString
+                self.startField.isEnabled = false
+                self.destField.isEnabled = true
+                //show edit button for start
+                mode = 2
+            }
+            else{
+                self.destString = outputString
+                self.destField.text = outputString
+                self.destField.isEnabled = false
+                
+                //show find route button and edit button for dest
+                mode = 4
+            }
+            DispatchQueue.main.async{
+                self.dataTable.reloadData()
+            }
+        }
+    }
+    
     @IBAction func openSearchMenu(_ sender: Any) {
         viewTopConstraint.constant = 100
         dividerLine.isHidden = false

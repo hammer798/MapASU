@@ -36,11 +36,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var locationManager = CLLocationManager()
     var mode = 0
     
+    var allLocations = locations()
     var finalDirs = directions()
     var search = searchAPI()
     
     var startString: String = ""
     var destString: String = ""
+    
+    var startAnno = MKPointAnnotation()
+    var destAnno = MKPointAnnotation()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -181,10 +185,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             else{
                 outputString = locationsArray[indexPath.row].name ?? ""
+                
                 locationsArray = []
             }
             
             if mode < 2{
+                let startLoc = allLocations.matchStringToLocation(name: outputString)
+                self.startAnno.coordinate = CLLocationCoordinate2D(latitude: startLoc.lat!, longitude: startLoc.lng!)
+                self.startAnno.title = startLoc.name
+                self.startAnno.subtitle = "Start"
+                self.theMap.addAnnotation(self.startAnno)
+                
                 self.startString = outputString
                 self.startField.text = outputString
                 self.startField.isEnabled = false
@@ -204,6 +215,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
             }
             else{
+                let endLoc = allLocations.matchStringToLocation(name: outputString)
+                self.destAnno.coordinate = CLLocationCoordinate2D(latitude: endLoc.lat!, longitude: endLoc.lng!)
+                self.destAnno.title = endLoc.name
+                self.destAnno.subtitle = "Start"
+                self.theMap.addAnnotation(self.destAnno)
+                
                 self.destString = outputString
                 self.destField.text = outputString
                 self.destField.isEnabled = false

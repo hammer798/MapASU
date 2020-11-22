@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 class locations {
     var allLocations:[location] = [location]()
@@ -56,6 +57,23 @@ class locations {
             }
         }
         return allLocations[1]
+    }
+    
+    func getNearestLoc(userCoords: (Double?, Double?)) -> location{
+        let userLoc = CLLocation(latitude:userCoords.0!, longitude:userCoords.1!)
+        
+        var nearest = -1.0
+        var nearestLoc = allLocations[0]
+        
+        for loc in allLocations{
+            let locLocation = CLLocation(latitude: loc.lat!, longitude: loc.lng!)
+            if nearest == -1.0 || userLoc.distance(from: locLocation) < nearest{
+                nearest = userLoc.distance(from:locLocation)
+                nearestLoc = loc
+            }
+        }
+        
+        return nearestLoc
     }
     
     func getCount() -> Int {

@@ -21,10 +21,17 @@ class directions{
     
     init(){}
     
-    func generateRoute(start:String, dest:String, walkOnly: Int, group: DispatchGroup){
+    func generateRoute(start:String, dest:String, walkOnly: Int, userCoords: (Double?, Double?), group: DispatchGroup){
         
         //get location values
-        let stLoc = allLocations.matchStringToLocation(name: start)
+        var stLoc = allLocations.allLocations[0]
+        if start.lowercased() == "current location"{
+            let currLoc = allLocations.getNearestLoc(userCoords: userCoords)
+            stLoc = currLoc
+        }
+        else{
+            stLoc = allLocations.matchStringToLocation(name: start)
+        }
         let destLoc = allLocations.matchStringToLocation(name: dest)
         
         //reset arrays

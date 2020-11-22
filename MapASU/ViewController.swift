@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 import SwiftSoup
+import CoreData
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, MKMapViewDelegate {
 
@@ -27,6 +28,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var dataTable: UITableView!
     @IBOutlet weak var closePanelButton: UIButton!
     @IBOutlet weak var openPanelButton: UIButton!
+    @IBOutlet weak var locationButton: UIButton!
     @IBOutlet weak var initialMessage: UILabel!
     
     @IBOutlet weak var viewTopConstraint: NSLayoutConstraint!
@@ -36,12 +38,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var locationManager = CLLocationManager()
     var mode = 0
     
+    let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    var prevRoutes: [PreviousRoute] = []
+    
     var allLocations = locations()
     var finalDirs = directions()
     var search = searchAPI()
     
     var startString: String = ""
     var destString: String = ""
+    
+    var locServicesEnabled = true
     
     var startAnno = MKPointAnnotation()
     var destAnno = MKPointAnnotation()
@@ -54,6 +62,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         locationManager.delegate = self
         theMap.delegate = self
         locationManager.requestAlwaysAuthorization()
+        
+        getPrevRoutes()
         initializeMap()
         
     }
@@ -63,10 +73,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             locationManager.startUpdatingLocation()
             theMap.showsUserLocation = true
         }
+        else{
+            locServicesEnabled = false
+            locationButton.isHidden = true
+        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        if mode == 0 || mode == 2 || mode == 4{
+        if mode == 2 || mode == 4{
             return 0
         }
         else if classesArray.count > 0 && locationsArray.count > 0{
@@ -76,8 +90,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if mode == 0 || mode == 2 || mode == 4{
-            //blank while we get input
+        if mode == 0 {
+            return prevRoutes.count
+        }
+        else if mode == 2 || mode == 4{
             return 0
         }
         else if mode == 1 || mode == 3 {
@@ -102,6 +118,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?{
         if mode == 5{
             return "Directions"
+        }
+        else if mode == 0 && prevRoutes.count > 0{
+            return "Previous Routes"
         }
         else if classesArray.count > 0 && locationsArray.count > 0{
             if section == 0{
@@ -130,7 +149,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         var nextCourseData: course?
         var nextLocData: location?
         
-        if mode != 5{
+        if mode != 5 && mode != 0{
             if classesArray.count > 0 && locationsArray.count > 0{
                 if indexPath.section == 0{
                     nextCourseData = classesArray[indexPath.row]
@@ -158,6 +177,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 cell.label3.isHidden = true
             }
         }
+        else if mode == 0{
+            //previous routes
+            let prevRoute = prevRoutes[indexPath.row]
+            cell.label1.text = "Start: \(prevRoute.start ?? "")"
+            cell.label2.text = "Destination: \(prevRoute.dest ?? "")"
+            cell.label3.text = ""
+            cell.label3.isHidden = true
+        }
         else{
             //directions cell
             let directionData = finalDirs.route[indexPath.row]
@@ -178,7 +205,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if mode != 5{
+        if mode != 5 && mode != 0{
             var outputString = ""
             if indexPath.section == 0 && classesArray.count > 0{
                 outputString = classesArray[indexPath.row].courseName
@@ -202,6 +229,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.startField.isEnabled = false
                 self.startField.alpha = 0.3
                 self.editStartButton.isHidden = false
+                self.locationButton.isHidden = true
                 if destString == ""{
                     self.destField.isEnabled = true
                     self.destField.alpha = 1.0
@@ -236,6 +264,42 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.dataTable.reloadData()
             }
         }
+        else if mode == 0 && prevRoutes.count > 0{
+            if indexPath.row < prevRoutes.count{
+                let startS = prevRoutes[indexPath.row].start
+                let destS = prevRoutes[indexPath.row].dest
+                
+                self.startField.text = startS
+                self.startField.isEnabled = false
+                self.startField.alpha = 0.3
+                self.startString = startS!
+                self.destField.text = destS
+                self.destField.isEnabled = false
+                self.destField.alpha = 0.3
+                self.destString = destS!
+                self.editStartButton.isHidden = false
+                self.editDestButton.isHidden = false
+                self.searchButton.isHidden = true
+                self.routeButton.isHidden = false
+                self.initialMessage.text = "Return to your route!"
+                self.openPanelButton.setTitle("Open", for: .normal)
+                self.openPanelButton.titleLabel?.textAlignment = .center
+                
+                let startLoc = allLocations.matchStringToLocation(name: startS!)
+                self.startAnno.coordinate = CLLocationCoordinate2D(latitude: startLoc.lat!, longitude: startLoc.lng!)
+                self.startAnno.title = startLoc.name
+                self.startAnno.subtitle = "Start"
+                self.theMap.addAnnotation(self.startAnno)
+                
+                let endLoc = allLocations.matchStringToLocation(name: destS!)
+                self.destAnno.coordinate = CLLocationCoordinate2D(latitude: endLoc.lat!, longitude: endLoc.lng!)
+                self.destAnno.title = endLoc.name
+                self.destAnno.subtitle = "Start"
+                self.theMap.addAnnotation(self.destAnno)
+                
+                self.getRouteHelper(start: startS!, dest: destS!)
+            }
+        }
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer{
@@ -249,7 +313,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @IBAction func openSearchMenu(_ sender: Any) {
-        viewTopConstraint.constant = 100
+        viewTopConstraint.constant = 170
         dividerLine.isHidden = false
         dataTable.isHidden = false
         closePanelButton.isHidden = false
@@ -259,6 +323,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         startLabel.isHidden = false
         destField.isHidden = false
         destLabel.isHidden = false
+        if mode < 2 && locServicesEnabled{
+            locationButton.isHidden = false
+        }
         if mode > 1{
             editStartButton.isHidden = false
         }
@@ -280,7 +347,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @IBAction func closeSearchMenu(_ sender: Any) {
-        viewTopConstraint.constant = 656
+        viewTopConstraint.constant = 706
         dividerLine.isHidden = true
         dataTable.isHidden = true
         closePanelButton.isHidden = true
@@ -295,6 +362,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         walkOnlyToggle.isHidden = true
         editStartButton.isHidden = true
         editDestButton.isHidden = true
+        locationButton.isHidden = true
         UIView.animate(withDuration: 0.3, delay: 0.0, options:
             .curveEaseIn, animations: {
             self.view.layoutIfNeeded()
@@ -302,8 +370,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @IBAction func searchForStuff(_ sender: Any) {
-        self.initialMessage.text = "Return to Route"
-        self.openPanelButton.titleLabel?.text = "Open"
+        self.initialMessage.text = "Return to your route!"
+        self.openPanelButton.setTitle("Open", for: .normal)
+        self.openPanelButton.titleLabel?.textAlignment = .center
         var searchString = ""
         if mode == 0 || mode == 1{
             guard let start = startField.text else{return}
@@ -348,6 +417,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.routeButton.isHidden = true
         self.searchButton.isHidden = false
         self.walkOnlyToggle.isHidden = true
+        if locServicesEnabled{
+            self.locationButton.isHidden = false
+        }
         
         DispatchQueue.main.async{
             self.dataTable.reloadData()
@@ -371,12 +443,53 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    @IBAction func chooseCurrentLoc(_ sender: Any) {
+        self.startString = "Current Location"
+        
+        let startLoc = allLocations.matchStringToLocation(name: self.startString)
+        self.startAnno.coordinate = CLLocationCoordinate2D(latitude: startLoc.lat!, longitude: startLoc.lng!)
+        self.startAnno.title = startLoc.name
+        self.startAnno.subtitle = "Start"
+        self.theMap.addAnnotation(self.startAnno)
+        
+        self.startField.text = self.startString
+        self.startField.isEnabled = false
+        self.locationButton.isHidden = true
+        self.startField.alpha = 0.3
+        self.editStartButton.isHidden = false
+        if destString == ""{
+            self.destField.isEnabled = true
+            self.destField.alpha = 1.0
+            self.editStartButton.isHidden = false
+            mode = 2
+        }
+        else{
+            self.routeButton.isHidden = false
+            self.editDestButton.isHidden = false
+            self.walkOnlyToggle.isHidden = false
+            mode = 4
+        }
+        
+        DispatchQueue.main.async{
+            self.dataTable.reloadData()
+        }
+    }
     
     @IBAction func getRoute(_ sender: Any) {
+        self.getRouteHelper(start: self.startString, dest: self.destString)
+    }
+    
+    func getRouteHelper(start:String, dest:String){
+        var coords:(Double?, Double?) = (91.0, 181.0) //invalid lat and lng
+        if start.lowercased() == "current location"{
+            let userLoc = self.theMap.userLocation.location
+            coords = (userLoc?.coordinate.latitude, userLoc?.coordinate.longitude)
+        }
+        
         let group = DispatchGroup()
         group.enter()
         DispatchQueue.main.async{
-            self.finalDirs.generateRoute(start: self.startString, dest: self.destString, walkOnly: self.walkOnlyToggle.selectedSegmentIndex, group:group)
+            self.finalDirs.generateRoute(start: start, dest: dest, walkOnly: self.walkOnlyToggle.selectedSegmentIndex, userCoords: coords, group:group)
         }
         
         group.notify(queue: .main){
@@ -384,10 +497,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             DispatchQueue.main.async{
                 self.dataTable.reloadData()
+                for overlay in self.theMap.overlays{
+                    self.theMap.removeOverlay(overlay)
+                }
                 let routeLine = MKPolyline(coordinates: self.finalDirs.routeCoords, count: self.finalDirs.routeCoords.count)
                 self.theMap.addOverlay(routeLine)
+                self.saveRoute(start: self.startString, dest: self.destString)
             }
         }
+        
     }
     
     func initializeMap(){
@@ -398,6 +516,61 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let region: MKCoordinateRegion = MKCoordinateRegion(center: coordinates, span: span)
         self.theMap.setRegion(region, animated: true)
         self.theMap.showsUserLocation = true
+    }
+    
+    func getPrevRoutes(){
+        let routeFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "PreviousRoute")
+        routeFetch.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
+    
+        do {
+            let fetchedRoutes = try managedObjectContext.fetch(routeFetch) as! [PreviousRoute]
+            if fetchedRoutes.count > 0{
+                self.prevRoutes.append(contentsOf: fetchedRoutes)
+            }
+
+        } catch {
+            fatalError("Failed to fetch profile: \(error)")
+        }
+    }
+    
+    func saveRoute(start: String, dest: String){
+        var existsAlready = false
+        for prevRoute in prevRoutes{
+            if prevRoute.start == start && prevRoute.dest == dest {
+                existsAlready = true
+                
+                prevRoute.setValue(Date(), forKey: "timestamp")
+                
+                do{
+                    try managedObjectContext.save()
+                } catch let error as NSError{
+                    print("could not save - \(error), \(error.userInfo)")
+                }
+                return
+            }
+        }
+        
+        if !existsAlready && start != "" && dest != ""{
+            let entity = NSEntityDescription.entity(forEntityName: "PreviousRoute", in: managedObjectContext)!
+            
+            let route = NSManagedObject(entity: entity, insertInto: managedObjectContext)
+            route.setValue(start, forKeyPath: "start")
+            route.setValue(dest, forKeyPath: "dest")
+            route.setValue(Date(), forKeyPath: "timestamp")
+            
+            // saving max of 5
+            if prevRoutes.count == 5{
+                managedObjectContext.delete(prevRoutes[4])
+                prevRoutes.remove(at: 4)
+            }
+            
+            do{
+                try managedObjectContext.save()
+                self.prevRoutes.insert(route as! PreviousRoute, at: 0)
+            } catch let error as NSError {
+                print("could not save - \(error), \(error.userInfo)")
+            }
+        }
     }
     
 }

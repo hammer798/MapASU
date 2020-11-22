@@ -16,11 +16,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="8F8-1N-dMt">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="700"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="750"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QTt-xY-bB1">
-                                <rect key="frame" x="0.0" y="700" width="414" height="742"/>
+                                <rect key="frame" x="0.0" y="750" width="414" height="742"/>
                                 <subviews>
                                     <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XUg-Wj-aL6">
                                         <rect key="frame" x="47" y="170" width="320" height="2"/>
@@ -121,7 +121,7 @@
                                         </prototypes>
                                     </tableView>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fYn-y9-9Gs">
-                                        <rect key="frame" x="188" y="700" width="50" height="30"/>
+                                        <rect key="frame" x="188" y="620" width="50" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <state key="normal" title="Close"/>
@@ -129,15 +129,15 @@
                                             <action selector="closeSearchMenu:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kDG-sk-bxU"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Start finding your route!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S0Y-0t-lDj">
-                                        <rect key="frame" x="72" y="36" width="272" height="33"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Start finding your route!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S0Y-0t-lDj">
+                                        <rect key="frame" x="72" y="25" width="272" height="33"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j8F-AI-HBT">
-                                        <rect key="frame" x="148" y="99" width="118" height="44"/>
+                                        <rect key="frame" x="148" y="75" width="118" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -171,6 +171,14 @@
                                             <action selector="editDest:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2Q0-wl-fIG"/>
                                         </connections>
                                     </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GDN-xm-Oho">
+                                        <rect key="frame" x="93" y="20" width="30" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Location Button" image="location"/>
+                                        <connections>
+                                            <action selector="chooseCurrentLoc:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bzQ-uA-df0"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
@@ -179,8 +187,8 @@
                         <constraints>
                             <constraint firstItem="QTt-xY-bB1" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Du2-tp-lBJ"/>
                             <constraint firstItem="QTt-xY-bB1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Gok-U3-vWG"/>
-                            <constraint firstAttribute="bottom" secondItem="QTt-xY-bB1" secondAttribute="bottom" constant="-546" id="IyV-jE-cdy"/>
-                            <constraint firstItem="QTt-xY-bB1" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="656" id="etN-8T-q3E"/>
+                            <constraint firstAttribute="bottom" secondItem="QTt-xY-bB1" secondAttribute="bottom" constant="-596" id="IyV-jE-cdy"/>
+                            <constraint firstItem="QTt-xY-bB1" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="706" id="etN-8T-q3E"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -193,6 +201,7 @@
                         <outlet property="editDestButton" destination="lZc-o8-JnS" id="Ahb-Mo-Zhg"/>
                         <outlet property="editStartButton" destination="aYw-MV-iRJ" id="utd-lf-sTc"/>
                         <outlet property="initialMessage" destination="S0Y-0t-lDj" id="wXC-YU-7gy"/>
+                        <outlet property="locationButton" destination="GDN-xm-Oho" id="AFt-mg-seD"/>
                         <outlet property="openPanelButton" destination="j8F-AI-HBT" id="DKE-bL-tfu"/>
                         <outlet property="routeButton" destination="4XY-ny-JM2" id="DT8-Ps-mEn"/>
                         <outlet property="searchButton" destination="NTc-jb-cig" id="1RP-t1-19p"/>
@@ -210,6 +219,7 @@
     </scenes>
     <resources>
         <image name="bike" width="960" height="480"/>
+        <image name="location" width="512" height="512"/>
         <image name="walking" width="1024" height="1024"/>
     </resources>
 </document>

@@ -11,7 +11,7 @@ import MapKit
 import CoreLocation
 import SwiftSoup
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, MKMapViewDelegate {
 
     @IBOutlet weak var theMap: MKMapView!
     @IBOutlet weak var startLabel: UILabel!
@@ -52,6 +52,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         dataTable.dataSource = self
         dataTable.delegate = self
         locationManager.delegate = self
+        theMap.delegate = self
         locationManager.requestAlwaysAuthorization()
         initializeMap()
         
@@ -237,6 +238,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer{
+        if let polyline = overlay as? MKPolyline{
+            let testlineRenderer = MKPolylineRenderer(polyline: polyline)
+            testlineRenderer.strokeColor = .blue
+            testlineRenderer.lineWidth = 2.0
+            return testlineRenderer
+        }
+        fatalError("something wrong")
+    }
+    
     @IBAction func openSearchMenu(_ sender: Any) {
         viewTopConstraint.constant = 100
         dividerLine.isHidden = false
@@ -373,6 +384,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             DispatchQueue.main.async{
                 self.dataTable.reloadData()
+                let routeLine = MKPolyline(coordinates: self.finalDirs.routeCoords, count: self.finalDirs.routeCoords.count)
+                self.theMap.addOverlay(routeLine)
             }
         }
     }

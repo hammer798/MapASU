@@ -13,6 +13,7 @@ class directions{
     var allPaths = paths()
     var allLocations = locations()
     var route:[direction] = [direction]()
+    var routeCoords:[CLLocationCoordinate2D] = []
     var startName: String?
     var destName: String?
     
@@ -29,8 +30,10 @@ class directions{
         //reset arrays
         self.route = []
         self.possibleRoutes = []
+        self.routeCoords = []
         
         self.route = dijkstra(start: stLoc, dest: destLoc, walkOnly: walkOnly)
+        self.createCoordsArray(start:stLoc, dest:destLoc)
         
         group.leave()
     }
@@ -205,6 +208,37 @@ class directions{
         finalDirections.append(finalDirection)
         
         return finalDirections
+    }
+    
+    func createCoordsArray(start:location, dest:location){
+        let startPath = allPaths.getPathByName(name: start.adjacentPath!)
+        if startPath.orientation == 0{
+            let startCoords = CLLocationCoordinate2D(latitude: start.lat!, longitude: startPath.long1!)
+            self.routeCoords.append(startCoords)
+        }
+        else{
+            let startCoords = CLLocationCoordinate2D(latitude:startPath.lat1!, longitude: start.lng!)
+            self.routeCoords.append(startCoords)
+        }
+        for dir in self.route{
+            if dir.nextPath == dest.name{
+                let lastPath = allPaths.getPathByName(name: dest.adjacentPath!)
+                if lastPath.orientation == 0{
+                    let coords = CLLocationCoordinate2D(latitude: dest.lat!, longitude: lastPath.long1!)
+                    self.routeCoords.append(coords)
+                }
+                else{
+                    let startCoords = CLLocationCoordinate2D(latitude:lastPath.lat1!, longitude: dest.lng!)
+                    self.routeCoords.append(startCoords)                }
+                return
+            }
+            else{
+                let thePath = allPaths.getPathByName(name: dir.nextPath!)
+                let inter = thePath.getInterWith(name: dir.path!)
+                let coords = CLLocationCoordinate2D(latitude: inter.0, longitude: inter.1)
+                self.routeCoords.append(coords)
+            }
+        }
     }
     
 }

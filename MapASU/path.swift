@@ -28,10 +28,10 @@ class path{
         self.walkOnly = walk
         
         if abs(lat1 - lat2) > abs(long1 - long2) {
-            self.orientation = 0
+            self.orientation = 0 //NS
         }
         else{
-            self.orientation = 1
+            self.orientation = 1 //EW
         }
     }
     

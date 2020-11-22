@@ -24,6 +24,10 @@
 		8B3F068E24E7436A00E4E5A8 /* MapASU.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8B3F068C24E7436A00E4E5A8 /* MapASU.xcdatamodeld */; };
 		8B3F069024E7437F00E4E5A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B3F068F24E7437F00E4E5A8 /* Assets.xcassets */; };
 		8B3F069324E7437F00E4E5A8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8B3F069124E7437F00E4E5A8 /* LaunchScreen.storyboard */; };
+		8B4C44FC256A515F00EB3CE3 /* PrevRoute+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4C44FA256A515F00EB3CE3 /* PrevRoute+CoreDataClass.swift */; };
+		8B4C44FD256A515F00EB3CE3 /* PrevRoute+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4C44FB256A515F00EB3CE3 /* PrevRoute+CoreDataProperties.swift */; };
+		8B4C4500256A562500EB3CE3 /* PreviousRoute+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4C44FE256A562500EB3CE3 /* PreviousRoute+CoreDataClass.swift */; };
+		8B4C4501256A562500EB3CE3 /* PreviousRoute+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4C44FF256A562500EB3CE3 /* PreviousRoute+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +49,10 @@
 		8B3F068F24E7437F00E4E5A8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8B3F069224E7437F00E4E5A8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8B3F069424E7437F00E4E5A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8B4C44FA256A515F00EB3CE3 /* PrevRoute+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PrevRoute+CoreDataClass.swift"; path = "MapASU/PrevRoute+CoreDataClass.swift"; sourceTree = "<group>"; };
+		8B4C44FB256A515F00EB3CE3 /* PrevRoute+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PrevRoute+CoreDataProperties.swift"; path = "MapASU/PrevRoute+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		8B4C44FE256A562500EB3CE3 /* PreviousRoute+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PreviousRoute+CoreDataClass.swift"; path = "MapASU/PreviousRoute+CoreDataClass.swift"; sourceTree = "<group>"; };
+		8B4C44FF256A562500EB3CE3 /* PreviousRoute+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PreviousRoute+CoreDataProperties.swift"; path = "MapASU/PreviousRoute+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +70,10 @@
 		8B3F067724E7436A00E4E5A8 = {
 			isa = PBXGroup;
 			children = (
+				8B4C44FE256A562500EB3CE3 /* PreviousRoute+CoreDataClass.swift */,
+				8B4C44FF256A562500EB3CE3 /* PreviousRoute+CoreDataProperties.swift */,
+				8B4C44FA256A515F00EB3CE3 /* PrevRoute+CoreDataClass.swift */,
+				8B4C44FB256A515F00EB3CE3 /* PrevRoute+CoreDataProperties.swift */,
 				8B3F068224E7436A00E4E5A8 /* MapASU */,
 				8B3F068124E7436A00E4E5A8 /* Products */,
 			);
@@ -176,8 +188,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B4C44FC256A515F00EB3CE3 /* PrevRoute+CoreDataClass.swift in Sources */,
 				8B3DB09A255A7F2A00EAA598 /* path.swift in Sources */,
 				8B06291F254CA24700AD33ED /* InfoDisplayTableViewCell.swift in Sources */,
+				8B4C44FD256A515F00EB3CE3 /* PrevRoute+CoreDataProperties.swift in Sources */,
+				8B4C4500256A562500EB3CE3 /* PreviousRoute+CoreDataClass.swift in Sources */,
 				8B3C62782567AC9C00FA809A /* searchAPI.swift in Sources */,
 				8B3DB098255A7F1B00EAA598 /* locations.swift in Sources */,
 				8B3F068824E7436A00E4E5A8 /* ViewController.swift in Sources */,
@@ -189,6 +204,7 @@
 				8B3F068E24E7436A00E4E5A8 /* MapASU.xcdatamodeld in Sources */,
 				8B3DB094255A7EFF00EAA598 /* directions.swift in Sources */,
 				8B3F068624E7436A00E4E5A8 /* SceneDelegate.swift in Sources */,
+				8B4C4501256A562500EB3CE3 /* PreviousRoute+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

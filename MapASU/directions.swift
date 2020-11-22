@@ -20,10 +20,17 @@ class directions{
     
     init(){}
     
-    func generateRoute(start:String, dest:String, group: DispatchGroup){
+    func generateRoute(start:String, dest:String, walkOnly: Int, group: DispatchGroup){
+        
+        //get location values
         let stLoc = allLocations.matchStringToLocation(name: start)
         let destLoc = allLocations.matchStringToLocation(name: dest)
-        self.route = dijkstra(start: stLoc, dest: destLoc)
+        
+        //reset arrays
+        self.route = []
+        self.possibleRoutes = []
+        
+        self.route = dijkstra(start: stLoc, dest: destLoc, walkOnly: walkOnly)
         
         group.leave()
     }
@@ -115,7 +122,7 @@ class directions{
         return shortestRoute
     }
     
-    func dijkstra(start:location, dest:location) -> [direction]{
+    func dijkstra(start:location, dest:location, walkOnly: Int) -> [direction]{
         var finalDirections:[direction] = []
         
         //set up initial paths
@@ -123,8 +130,28 @@ class directions{
         startPath.intersections.forEach{ inter in
             var directionPath:[direction] = []
             let interDirection = direction(p:startPath.name!, np:inter.0, dis:calcDistance(inter: inter, d:(start.lat!, start.lng!)), dir:chooseDirection(inter: inter, d:(start.lat!, start.lng!)), m:"")
+            var directDistance = interDirection.distance
+            if walkOnly == 1{
+                if startPath.walkOnly!{
+                    directDistance = Int(round(Double(directDistance!) * 1.5))
+                }
+            }
             directionPath.append(interDirection)
-            possibleRoutes.append((interDirection.distance!, directionPath))
+            possibleRoutes.append((directDistance!, directionPath))
+        }
+        
+        if startPath.name == dest.adjacentPath{
+            var directionPath:[direction] = []
+            let onlyDirection = direction(p:startPath.name!, np:dest.name!, dis:calcFinalDistance(p1: (start.lat!, start.lng!), p2: (dest.lat!, dest.lng!)), dir:chooseFinalDirection(p1:(start.lat!, start.lng!), p2: (dest.lat!, dest.lng!), orient: startPath.orientation!), m:"")
+            var directDistance = onlyDirection.distance
+            if walkOnly == 1{
+                if startPath.walkOnly!{
+                    directDistance = Int(round(Double(directDistance!) * 1.5))
+                }
+            }
+            directionPath.append(onlyDirection)
+            possibleRoutes.append((directDistance!, directionPath))
+            
         }
         
         //repeatedly expand until the shortest path reaches the goal
@@ -142,8 +169,14 @@ class directions{
                         
                         let newDirection = direction(p: nextPath.name!, np: inter.0, dis: calcDistance(inter: inter, d:(lastInter.0,lastInter.1)), dir: chooseDirection(inter: inter, d: (lastInter.0, lastInter.1)), m: "")
                         
+                        var directDistance = newDirection.distance
+                        if walkOnly == 1{
+                            if nextPath.walkOnly!{
+                                directDistance = Int(round(Double(directDistance!) * 1.5))
+                            }
+                        }
                         newDirections.append(newDirection)
-                        let newPartialRoute = (pathToExpand.0 + newDirection.distance!, newDirections)
+                        let newPartialRoute = (pathToExpand.0 + directDistance!, newDirections)
                         possibleRoutes.append(newPartialRoute)
                     }
                 }
@@ -153,9 +186,14 @@ class directions{
                 newDirections.append(contentsOf:pathToExpand.1)
                 
                 let newDirection = direction(p: nextPath.name!, np: dest.name!, dis:calcFinalDistance(p1: lastInter, p2:(dest.lat!,dest.lng!)), dir: chooseFinalDirection(p1:lastInter, p2:(dest.lat!,dest.lng!), orient: nextPath.orientation!), m: "")
-                
+                var directDistance = newDirection.distance
+                if walkOnly == 1{
+                    if nextPath.walkOnly!{
+                        directDistance = Int(round(Double(directDistance!) * 1.5))
+                    }
+                }
                 newDirections.append(newDirection)
-                let newPartialRoute = (pathToExpand.0 + newDirection.distance!, newDirections)
+                let newPartialRoute = (pathToExpand.0 + directDistance!, newDirections)
                 possibleRoutes.append(newPartialRoute)            }
             
             pathToExpand = nextInQueue()

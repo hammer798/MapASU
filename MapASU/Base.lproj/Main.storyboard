@@ -35,7 +35,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iGL-Hz-tJh">
-                                        <rect key="frame" x="130" y="19" width="230" height="34"/>
+                                        <rect key="frame" x="120" y="19" width="230" height="34"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -48,7 +48,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8Op-P0-iLD">
-                                        <rect key="frame" x="130" y="70" width="230" height="34"/>
+                                        <rect key="frame" x="120" y="70" width="230" height="34"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -155,6 +155,22 @@
                                             <action selector="getRoute:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Wbo-b9-aU0"/>
                                         </connections>
                                     </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aYw-MV-iRJ">
+                                        <rect key="frame" x="365" y="19" width="37" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="(edit)"/>
+                                        <connections>
+                                            <action selector="editStart:" destination="BYZ-38-t0r" eventType="touchUpInside" id="S9k-CC-gKN"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lZc-o8-JnS">
+                                        <rect key="frame" x="365" y="70" width="37" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="(edit)"/>
+                                        <connections>
+                                            <action selector="editDest:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2Q0-wl-fIG"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
@@ -174,6 +190,8 @@
                         <outlet property="destField" destination="8Op-P0-iLD" id="iiC-93-639"/>
                         <outlet property="destLabel" destination="GNe-mA-dhb" id="HnL-v9-lfV"/>
                         <outlet property="dividerLine" destination="XUg-Wj-aL6" id="mT3-vl-lH0"/>
+                        <outlet property="editDestButton" destination="lZc-o8-JnS" id="Ahb-Mo-Zhg"/>
+                        <outlet property="editStartButton" destination="aYw-MV-iRJ" id="utd-lf-sTc"/>
                         <outlet property="initialMessage" destination="S0Y-0t-lDj" id="wXC-YU-7gy"/>
                         <outlet property="openPanelButton" destination="j8F-AI-HBT" id="DKE-bL-tfu"/>
                         <outlet property="routeButton" destination="4XY-ny-JM2" id="DT8-Ps-mEn"/>

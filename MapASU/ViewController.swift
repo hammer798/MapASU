@@ -20,6 +20,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var destField: UITextField!
     @IBOutlet weak var searchButton: UIButton!
     @IBOutlet weak var routeButton: UIButton!
+    @IBOutlet weak var editStartButton: UIButton!
+    @IBOutlet weak var editDestButton: UIButton!
     @IBOutlet weak var walkOnlyToggle: UISegmentedControl!
     @IBOutlet weak var dividerLine: UIView!
     @IBOutlet weak var dataTable: UITableView!
@@ -155,7 +157,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             //directions cell
             let directionData = finalDirs.route[indexPath.row]
             cell.label1.text = directionData.message
-            if indexPath.row != finalDirs.route.count - 1{
+            if directionData.distance != 0{
+                print(directionData.distance)
                 cell.label2.text = "\(directionData.distance ?? 100) feet"
             }
             else{
@@ -186,9 +189,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.startString = outputString
                 self.startField.text = outputString
                 self.startField.isEnabled = false
-                self.destField.isEnabled = true
-                //show edit button for start
-                mode = 2
+                self.editStartButton.isHidden = false
+                if destString == ""{
+                    self.destField.isEnabled = true
+                    self.editStartButton.isHidden = false
+                    mode = 2
+                }
+                else{
+                    self.routeButton.isHidden = false
+                    self.editDestButton.isHidden = false
+                    self.walkOnlyToggle.isHidden = false
+                    mode = 4
+                }
             }
             else{
                 self.destString = outputString
@@ -196,8 +208,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.destField.isEnabled = false
                 self.searchButton.isHidden = true
                 self.routeButton.isHidden = false
-                
-                //show find route button and edit button for dest
+                self.editDestButton.isHidden = false
+                self.walkOnlyToggle.isHidden = false
                 mode = 4
             }
             DispatchQueue.main.async{
@@ -217,7 +229,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         startLabel.isHidden = false
         destField.isHidden = false
         destLabel.isHidden = false
-        searchButton.isHidden = false
+        if mode < 4{
+            searchButton.isHidden = false
+        }
+        else{
+            routeButton.isHidden = false
+            walkOnlyToggle.isHidden = false
+        }
         UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseIn, animations: {
             self.view.layoutIfNeeded()
         })
@@ -237,6 +255,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         destLabel.isHidden = true
         searchButton.isHidden = true
         routeButton.isHidden = true
+        walkOnlyToggle.isHidden = true
         UIView.animate(withDuration: 0.3, delay: 0.0, options:
             .curveEaseIn, animations: {
             self.view.layoutIfNeeded()
@@ -278,11 +297,43 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
     
+    @IBAction func editStart(_ sender: Any) {
+        self.startString = ""
+        self.mode = 0
+        self.editStartButton.isHidden = true
+        self.editDestButton.isHidden = true
+        self.startField.isEnabled = true
+        self.destField.isEnabled = false
+        self.routeButton.isHidden = true
+        self.searchButton.isHidden = false
+        self.walkOnlyToggle.isHidden = true
+        
+        DispatchQueue.main.async{
+            self.dataTable.reloadData()
+        }
+    }
+    
+    @IBAction func editDest(_ sender: Any) {
+        self.destString = ""
+        self.mode = 2
+        self.editDestButton.isHidden = true
+        self.startField.isEnabled = false
+        self.destField.isEnabled = true
+        self.routeButton.isHidden = true
+        self.searchButton.isHidden = false
+        self.walkOnlyToggle.isHidden = true
+        
+        DispatchQueue.main.async{
+            self.dataTable.reloadData()
+        }
+    }
+    
+    
     @IBAction func getRoute(_ sender: Any) {
         let group = DispatchGroup()
         group.enter()
         DispatchQueue.main.async{
-            self.finalDirs.generateRoute(start: self.startString, dest: self.destString, group:group)
+            self.finalDirs.generateRoute(start: self.startString, dest: self.destString, walkOnly: self.walkOnlyToggle.selectedSegmentIndex, group:group)
         }
         
         group.notify(queue: .main){

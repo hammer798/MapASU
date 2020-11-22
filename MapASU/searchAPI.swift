@@ -84,12 +84,14 @@ class searchAPI{
                                         locations.append(place)
                                     }
                                 }
-                                for i in (0...professors.count-1){
-                                    if(!(locations[i].lowercased().contains("sync"))){
-                                        let newCourse = course(cn: names[i] + names2[i], pro: professors[i], dt: days[i]  + " " + times[i], pl: locations[i])
-                                        self.classesArray.append(newCourse)
+                                if(professors.count > 0){
+                                    for i in (0...professors.count-1){
+                                        if(!(locations[i].lowercased().contains("sync"))){
+                                            let newCourse = course(cn: names[i] + names2[i], pro: professors[i], dt: days[i]  + " " + times[i], pl: locations[i])
+                                            self.classesArray.append(newCourse)
+                                        }
                                     }
-                                }
+                                    }
                             }
                             catch let parserError{
                                 print(parserError.localizedDescription)

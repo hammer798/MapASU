@@ -158,7 +158,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let directionData = finalDirs.route[indexPath.row]
             cell.label1.text = directionData.message
             if directionData.distance != 0{
-                print(directionData.distance)
                 cell.label2.text = "\(directionData.distance ?? 100) feet"
             }
             else{
@@ -189,9 +188,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.startString = outputString
                 self.startField.text = outputString
                 self.startField.isEnabled = false
+                self.startField.alpha = 0.3
                 self.editStartButton.isHidden = false
                 if destString == ""{
                     self.destField.isEnabled = true
+                    self.destField.alpha = 1.0
                     self.editStartButton.isHidden = false
                     mode = 2
                 }
@@ -206,6 +207,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.destString = outputString
                 self.destField.text = outputString
                 self.destField.isEnabled = false
+                self.destField.alpha = 0.3
                 self.searchButton.isHidden = true
                 self.routeButton.isHidden = false
                 self.editDestButton.isHidden = false
@@ -229,6 +231,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         startLabel.isHidden = false
         destField.isHidden = false
         destLabel.isHidden = false
+        if mode > 1{
+            editStartButton.isHidden = false
+        }
+        if mode > 3{
+            editDestButton.isHidden = false
+        }
+        
         if mode < 4{
             searchButton.isHidden = false
         }
@@ -256,6 +265,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         searchButton.isHidden = true
         routeButton.isHidden = true
         walkOnlyToggle.isHidden = true
+        editStartButton.isHidden = true
+        editDestButton.isHidden = true
         UIView.animate(withDuration: 0.3, delay: 0.0, options:
             .curveEaseIn, animations: {
             self.view.layoutIfNeeded()
@@ -303,7 +314,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.editStartButton.isHidden = true
         self.editDestButton.isHidden = true
         self.startField.isEnabled = true
+        self.startField.alpha = 1.0
         self.destField.isEnabled = false
+        self.destField.alpha = 0.3
         self.routeButton.isHidden = true
         self.searchButton.isHidden = false
         self.walkOnlyToggle.isHidden = true
@@ -318,7 +331,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.mode = 2
         self.editDestButton.isHidden = true
         self.startField.isEnabled = false
+        self.startField.alpha = 0.3
         self.destField.isEnabled = true
+        self.destField.alpha = 1.0
         self.routeButton.isHidden = true
         self.searchButton.isHidden = false
         self.walkOnlyToggle.isHidden = true

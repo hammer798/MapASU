@@ -31,6 +31,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var locationButton: UIButton!
     @IBOutlet weak var initialMessage: UILabel!
     
+    @IBOutlet weak var loadingImage: UIImageView!
     @IBOutlet weak var viewTopConstraint: NSLayoutConstraint!
     
     var classesArray: [course] = []
@@ -45,6 +46,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var allLocations = locations()
     var finalDirs = directions()
     var search = searchAPI()
+    
+    var loadingImages: [UIImage] = []
     
     var startString: String = ""
     var destString: String = ""
@@ -64,6 +67,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         locationManager.requestAlwaysAuthorization()
         
         getPrevRoutes()
+        setUpLoadingImage()
         initializeMap()
         
     }
@@ -383,6 +387,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @IBAction func searchForStuff(_ sender: Any) {
+        self.loadingImage.isHidden = false
         self.initialMessage.text = "Return to your route!"
         self.openPanelButton.setTitle("Open", for: .normal)
         self.openPanelButton.titleLabel?.textAlignment = .center
@@ -413,6 +418,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             //reset table
             DispatchQueue.main.async{
                 self.dataTable.reloadData()
+                self.loadingImage.isHidden = true
             }
         }
         
@@ -493,6 +499,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func getRouteHelper(start:String, dest:String){
+        self.loadingImage.isHidden = false
+        
         var coords:(Double?, Double?) = (91.0, 181.0) //invalid lat and lng
         if start.lowercased() == "current location"{
             let userLoc = self.theMap.userLocation.location
@@ -510,6 +518,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             DispatchQueue.main.async{
                 self.dataTable.reloadData()
+                self.loadingImage.isHidden = true
                 for overlay in self.theMap.overlays{
                     self.theMap.removeOverlay(overlay)
                 }
@@ -529,6 +538,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let region: MKCoordinateRegion = MKCoordinateRegion(center: coordinates, span: span)
         self.theMap.setRegion(region, animated: true)
         self.theMap.showsUserLocation = true
+    }
+    
+    func setUpLoadingImage(){
+        let loading1 = UIImage(named: "loading-1")!
+        let loading2 = UIImage(named:"loading-2")!
+        let loading3 = UIImage(named:"loading-3")!
+        let loading4 = UIImage(named:"loading-4")!
+        loadingImages.append(loading1)
+        loadingImages.append(loading2)
+        loadingImages.append(loading3)
+        loadingImages.append(loading4)
+        
+        loadingImage.image = UIImage.animatedImage(with: loadingImages, duration: 1.0)
     }
     
     func getPrevRoutes(){

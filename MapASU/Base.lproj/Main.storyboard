@@ -197,6 +197,10 @@
                                             <action selector="chooseCurrentLoc:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bzQ-uA-df0"/>
                                         </connections>
                                     </button>
+                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="loading-1" translatesAutoresizingMaskIntoConstraints="NO" id="1gQ-CT-vC1">
+                                        <rect key="frame" x="93" y="205" width="240" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
@@ -219,6 +223,7 @@
                         <outlet property="editDestButton" destination="lZc-o8-JnS" id="Ahb-Mo-Zhg"/>
                         <outlet property="editStartButton" destination="aYw-MV-iRJ" id="utd-lf-sTc"/>
                         <outlet property="initialMessage" destination="S0Y-0t-lDj" id="wXC-YU-7gy"/>
+                        <outlet property="loadingImage" destination="1gQ-CT-vC1" id="emz-Ft-D0q"/>
                         <outlet property="locationButton" destination="GDN-xm-Oho" id="AFt-mg-seD"/>
                         <outlet property="openPanelButton" destination="j8F-AI-HBT" id="DKE-bL-tfu"/>
                         <outlet property="routeButton" destination="4XY-ny-JM2" id="DT8-Ps-mEn"/>
@@ -237,6 +242,7 @@
     </scenes>
     <resources>
         <image name="bike" width="960" height="480"/>
+        <image name="loading-1" width="512" height="512"/>
         <image name="location" width="512" height="512"/>
         <image name="walking" width="1024" height="1024"/>
     </resources>

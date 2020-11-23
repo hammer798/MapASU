@@ -168,7 +168,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             if nextCourseData != nil{
                 cell.label1.text = nextCourseData?.courseName
                 cell.label2.text = nextCourseData?.professor
-                cell.label3.text = nextCourseData!.dayTime + " " + nextCourseData!.place
+                cell.label3.text = "\(nextCourseData?.dayTime ?? "") \(nextCourseData?.place ?? "")"
+                cell.label3.isHidden = false
             }
             else if nextLocData != nil{
                 cell.label1.text = nextLocData?.name
@@ -191,6 +192,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             cell.label1.text = directionData.message
             if directionData.distance != 0{
                 cell.label2.text = "\(directionData.distance ?? 100) feet"
+                cell.label2.isHidden = false
             }
             else{
                 cell.label2.text = ""
@@ -206,13 +208,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if mode != 5 && mode != 0{
+            var displayString = ""
             var outputString = ""
             if indexPath.section == 0 && classesArray.count > 0{
-                outputString = classesArray[indexPath.row].courseName
+                displayString = classesArray[indexPath.row].courseName
+                outputString = classesArray[indexPath.row].place
                 classesArray = []
             }
             else{
                 outputString = locationsArray[indexPath.row].name ?? ""
+                displayString = outputString
                 
                 locationsArray = []
             }
@@ -225,7 +230,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.theMap.addAnnotation(self.startAnno)
                 
                 self.startString = outputString
-                self.startField.text = outputString
+                self.startField.text = displayString
                 self.startField.isEnabled = false
                 self.startField.alpha = 0.3
                 self.editStartButton.isHidden = false
@@ -251,7 +256,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.theMap.addAnnotation(self.destAnno)
                 
                 self.destString = outputString
-                self.destField.text = outputString
+                self.destField.text = displayString
                 self.destField.isEnabled = false
                 self.destField.alpha = 0.3
                 self.searchButton.isHidden = true

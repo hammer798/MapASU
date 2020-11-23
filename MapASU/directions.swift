@@ -240,8 +240,8 @@ class directions{
                 return
             }
             else{
-                let thePath = allPaths.getPathByName(name: dir.nextPath!)
-                let inter = thePath.getInterWith(name: dir.path!)
+                let thePath = allPaths.getPathByName(name: dir.path!)
+                let inter = thePath.getInterWith(name: dir.nextPath!)
                 let coords = CLLocationCoordinate2D(latitude: inter.0, longitude: inter.1)
                 self.routeCoords.append(coords)
             }

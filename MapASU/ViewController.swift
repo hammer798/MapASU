@@ -149,6 +149,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         var nextCourseData: course?
         var nextLocData: location?
         
+        cell.label1.isHidden = false
+        cell.label2.isHidden = false
+        cell.label3.isHidden = false
+        cell.label4.isHidden = true
+        cell.label5.isHidden = true
         if mode != 5 && mode != 0{
             if classesArray.count > 0 && locationsArray.count > 0{
                 if indexPath.section == 0{
@@ -181,10 +186,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         else if mode == 0{
             //previous routes
             let prevRoute = prevRoutes[indexPath.row]
-            cell.label1.text = "Start: \(prevRoute.start ?? "")"
-            cell.label2.text = "Destination: \(prevRoute.dest ?? "")"
-            cell.label3.text = ""
+            cell.label4.text = "Start: \(prevRoute.start ?? "")"
+            cell.label5.text = "Destination: \(prevRoute.dest ?? "")"
+            cell.label1.isHidden = true
+            cell.label2.isHidden = true
             cell.label3.isHidden = true
+            cell.label4.isHidden = false
+            cell.label5.isHidden = false
         }
         else{
             //directions cell
@@ -450,8 +458,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBAction func chooseCurrentLoc(_ sender: Any) {
         self.startString = "Current Location"
-        
-        let startLoc = allLocations.matchStringToLocation(name: self.startString)
+        let userCoords = (self.theMap.userLocation.coordinate.latitude, self.theMap.userLocation.coordinate.longitude)
+        let startLoc = allLocations.getNearestLoc(userCoords: userCoords)
         self.startAnno.coordinate = CLLocationCoordinate2D(latitude: startLoc.lat!, longitude: startLoc.lng!)
         self.startAnno.title = startLoc.name
         self.startAnno.subtitle = "Start"

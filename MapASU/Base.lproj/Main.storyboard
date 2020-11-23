@@ -84,31 +84,47 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UtS-x6-2b3">
-                                                            <rect key="frame" x="60" y="11" width="48" height="24"/>
+                                                            <rect key="frame" x="30" y="11" width="48" height="24"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IkR-hE-bS3">
-                                                            <rect key="frame" x="90" y="31" width="42" height="21"/>
+                                                            <rect key="frame" x="30" y="31" width="42" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yES-x7-46x">
-                                                            <rect key="frame" x="90" y="48" width="42" height="21"/>
+                                                            <rect key="frame" x="30" y="48" width="42" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nua-IB-Xn0">
+                                                            <rect key="frame" x="30" y="20" width="44" height="22"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Nv-nN-2xw">
+                                                            <rect key="frame" x="30" y="44" width="44" height="22"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="UtS-x6-2b3" firstAttribute="top" secondItem="5lK-XY-jaI" secondAttribute="topMargin" id="7cH-xo-RtI"/>
-                                                        <constraint firstItem="IkR-hE-bS3" firstAttribute="leading" secondItem="5lK-XY-jaI" secondAttribute="leadingMargin" constant="70" id="ScP-Kh-dWi"/>
-                                                        <constraint firstItem="yES-x7-46x" firstAttribute="leading" secondItem="5lK-XY-jaI" secondAttribute="leadingMargin" constant="70" id="TbH-Aj-IdQ"/>
+                                                        <constraint firstItem="IkR-hE-bS3" firstAttribute="leading" secondItem="5lK-XY-jaI" secondAttribute="leadingMargin" constant="10" id="ScP-Kh-dWi"/>
+                                                        <constraint firstItem="yES-x7-46x" firstAttribute="leading" secondItem="5lK-XY-jaI" secondAttribute="leadingMargin" constant="10" id="TbH-Aj-IdQ"/>
+                                                        <constraint firstItem="0Nv-nN-2xw" firstAttribute="leading" secondItem="5lK-XY-jaI" secondAttribute="leadingMargin" constant="10" id="UOm-AP-m8f"/>
                                                         <constraint firstItem="yES-x7-46x" firstAttribute="top" secondItem="5lK-XY-jaI" secondAttribute="topMargin" constant="37" id="YbD-lX-0s7"/>
-                                                        <constraint firstItem="UtS-x6-2b3" firstAttribute="leading" secondItem="5lK-XY-jaI" secondAttribute="leadingMargin" constant="40" id="aId-ck-Zp7"/>
+                                                        <constraint firstItem="UtS-x6-2b3" firstAttribute="leading" secondItem="5lK-XY-jaI" secondAttribute="leadingMargin" constant="10" id="aId-ck-Zp7"/>
+                                                        <constraint firstItem="Nua-IB-Xn0" firstAttribute="leading" secondItem="5lK-XY-jaI" secondAttribute="leadingMargin" constant="10" id="ldG-Yc-ISl"/>
                                                         <constraint firstItem="IkR-hE-bS3" firstAttribute="top" secondItem="5lK-XY-jaI" secondAttribute="topMargin" constant="20" id="mJZ-9i-JJ6"/>
+                                                        <constraint firstItem="0Nv-nN-2xw" firstAttribute="top" secondItem="UtS-x6-2b3" secondAttribute="bottom" constant="9" id="njY-bH-ePL"/>
+                                                        <constraint firstItem="Nua-IB-Xn0" firstAttribute="top" secondItem="5lK-XY-jaI" secondAttribute="topMargin" constant="9" id="xkh-h1-Lc2"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -116,6 +132,8 @@
                                                     <outlet property="label1" destination="UtS-x6-2b3" id="edU-eH-4XT"/>
                                                     <outlet property="label2" destination="IkR-hE-bS3" id="dep-Rv-5R3"/>
                                                     <outlet property="label3" destination="yES-x7-46x" id="R4W-fO-14P"/>
+                                                    <outlet property="label4" destination="Nua-IB-Xn0" id="cFM-33-al0"/>
+                                                    <outlet property="label5" destination="0Nv-nN-2xw" id="G5n-f5-OT0"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>

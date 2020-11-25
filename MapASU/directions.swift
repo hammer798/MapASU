@@ -143,7 +143,7 @@ class directions{
             var directDistance = interDirection.distance
             if walkOnly == 1{
                 if startPath.walkOnly!{
-                    directDistance = Int(round(Double(directDistance!) * 1.5))
+                    directDistance = Int(round(Double(directDistance!) * 2.0))
                 }
             }
             directionPath.append(interDirection)
@@ -156,7 +156,7 @@ class directions{
             var directDistance = onlyDirection.distance
             if walkOnly == 1{
                 if startPath.walkOnly!{
-                    directDistance = Int(round(Double(directDistance!) * 1.5))
+                    directDistance = Int(round(Double(directDistance!) * 2.0))
                 }
             }
             directionPath.append(onlyDirection)
@@ -182,7 +182,7 @@ class directions{
                         var directDistance = newDirection.distance
                         if walkOnly == 1{
                             if nextPath.walkOnly!{
-                                directDistance = Int(round(Double(directDistance!) * 1.5))
+                                directDistance = Int(round(Double(directDistance!) * 2.0))
                             }
                         }
                         newDirections.append(newDirection)
@@ -199,7 +199,7 @@ class directions{
                 var directDistance = newDirection.distance
                 if walkOnly == 1{
                     if nextPath.walkOnly!{
-                        directDistance = Int(round(Double(directDistance!) * 1.5))
+                        directDistance = Int(round(Double(directDistance!) * 2.0))
                     }
                 }
                 newDirections.append(newDirection)

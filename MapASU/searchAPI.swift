@@ -86,7 +86,12 @@ class searchAPI{
                                 }
                                 if(professors.count > 0){
                                     for i in (0...professors.count-1){
-                                        if(!(locations[i].lowercased().contains("sync"))){
+                                        if(locations[i].lowercased().contains("tempe")){
+                                            if locations[i].lowercased().contains("hybrid"){
+                                                let loc = locations[i]
+                                                let hybridIndex = loc.range(of:"Internet - Hybrid")
+                                                locations[i] = String(loc[..<hybridIndex!.lowerBound])
+                                            }
                                             let newCourse = course(cn: names[i] + names2[i], pro: professors[i], dt: days[i]  + " " + times[i], pl: locations[i])
                                             self.classesArray.append(newCourse)
                                         }

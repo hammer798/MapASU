@@ -298,6 +298,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.editDestButton.isHidden = false
                 self.searchButton.isHidden = true
                 self.routeButton.isHidden = false
+                self.walkOnlyToggle.isHidden = false
                 self.initialMessage.text = "Return to your route!"
                 self.openPanelButton.setTitle("Open", for: .normal)
                 self.openPanelButton.titleLabel?.textAlignment = .center
